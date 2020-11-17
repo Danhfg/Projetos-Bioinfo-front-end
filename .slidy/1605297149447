@@ -1,0 +1,10 @@
+app2/lib/main.dart
+app2/lib/app/app_module.dart
+app2/lib/app/app_widget.dart
+app2/lib/app/modules/home/home_module.dart
+app2/lib/app/app_bloc.dart
+app2/lib/app/modules/home/home_page.dart
+app2/test/app/app_bloc_test.dart
+app2/test/app/modules/home/home_page_test.dart
+app2/lib/app/modules/home/home_bloc.dart
+app2/test/app/modules/home/home_bloc_test.dart
