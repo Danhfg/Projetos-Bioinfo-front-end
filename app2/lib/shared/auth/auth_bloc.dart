@@ -17,9 +17,9 @@ class AuthBloc extends BlocBase {
   String jwt;
 
   Future<String> login() async {
-    var res = await repo
-        .login({"email": "flutter@gmail.com", "password": "123456789"});
-    jwt = res['token'];
+    var res = await repo.login(
+        {"username": "danielhenriquefg@gmail.com", "password": "teste123"});
+    jwt = res /*['token']*/;
     SharedPreferences.getInstance().then((value) {
       value.setString("jwt", jwt);
     });

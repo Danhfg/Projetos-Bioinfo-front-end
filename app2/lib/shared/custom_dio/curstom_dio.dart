@@ -7,8 +7,8 @@ class CustomDio {
   final Dio client;
 
   CustomDio(this.client) {
-    client.options.baseUrl = BASE_URL;
-    client.interceptors.add(CustomIntercetors());
+    //client.options.baseUrl = BASE_URL;
+    //client.interceptors.add(CustomIntercetors());
     client.interceptors.add(AuthIntercetors());
   }
 }

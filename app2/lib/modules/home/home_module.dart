@@ -1,9 +1,10 @@
 import 'package:app2/modules/home/home_repository.dart';
 import 'package:app2/modules/predict/predict_bloc.dart';
 import 'package:app2/modules/predict/predict_page.dart';
+import 'package:app2/shared/auth/auth_bloc.dart';
+import 'package:app2/shared/auth/auth_repository.dart';
 import 'package:app2/shared/custom_dio/curstom_dio.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app2/modules/home/home_bloc.dart';

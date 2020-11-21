@@ -1,9 +1,12 @@
 import 'package:app2/shared/custom_dio/curstom_dio.dart';
+import 'package:app2/shared/custom_dio/intercetors.dart';
+import 'package:app2/shared/models/nsSNVGetModel.dart';
 import 'package:app2/shared/models/nsSNVModel.dart';
 import 'package:dio/dio.dart';
 
 class HomeRepository {
   final CustomDio dio;
+  final Dio dio2 = Dio();
 
   /*Dio _server = Dio(
     BaseOptions(
@@ -31,8 +34,8 @@ class HomeRepository {
     );*/
     try {
       var response = await dio.client.post(
-        "/api/predict/decisionTree",
-        "/posts",
+        "http://192.168.0.46:8443/api/predict/decisionTree",
+        //"/posts",
         data: nsSNV.toMap(),
       );
       return (response.statusCode);
@@ -41,12 +44,43 @@ class HomeRepository {
     }
   }
 
-  Future<Map> login(Map<String, dynamic> data) async {
+  Future<List<NsSNVGETModel>> getResult() async {
     try {
-      var response = await dio.client.post("/sign_in", data: data);
-      return response.data;
+      print("AAAAAAAAAAAAAAAA");
+      var res;
+      var response = await dio.client
+          .get("http://192.168.0.46:8443/api/predict/result")
+          .then((value) => {print(value), res = value});
+      //print("BBBBBBBBBBB");
+      //print(res.data);
+      return (res.data as List)
+          .map((item) => NsSNVGETModel.fromJson(item))
+          .toList();
     } on DioError catch (e) {
+      print("CCCCCCCCCCCCC");
       throw (e.message);
     }
   }
+/*
+  Future<String> login(Map<String, dynamic> data) async {
+    try {
+      //dio2.interceptors.add(CustomIntercetors());
+      var response1 = await dio2.post(
+        "http://192.168.0.46:8443/api/sign-in/",
+        data: data,
+      );
+      print(response1.data);
+      var response = await dio.client.post(
+        "http://192.168.0.46:8443/api/sign-in/",
+        data: data,
+      );
+      /*var response = await dio.client
+          .post("/api/sign-in/", data: data);
+      print("BBBBBBBBBBBBBBBBB");*/
+      return response1.data;
+    } on DioError catch (e) {
+      print("AAAAAAAAAAAAAAAAA");
+      throw (e.message);
+    }
+  }*/
 }
