@@ -15,6 +15,19 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var bloc = HomeModule.to.getBloc<HomeBloc>();
+  final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  Future<Null> _handleRefresh() async {
+    bloc.getResults();
+  }
+
+  showSnack() {
+    return scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: Text('Nova análise adicionada!'),
+      ),
+    );
+  }
 
   @override
   void initState() {
@@ -27,10 +40,61 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Column(
+      body: StreamBuilder<List<NsSNVGETModel>>(
+        stream: bloc.responseOut,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            print(snapshot);
+            return Center(
+              child: Text(
+                snapshot.error.toString(),
+              ),
+            );
+          }
+          if (snapshot.hasData) {
+            return Column(
+              children: <Widget>[
+                Expanded(
+                  child: RefreshIndicator(
+                    onRefresh: _handleRefresh,
+                    child: ListView.builder(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (context, index) {
+                        var nsSnv = snapshot.data[index];
+                        return ListTile(
+                          title: Text("Posição " +
+                              nsSnv.pos.toString() +
+                              " e mutação " +
+                              nsSnv.alt),
+                          subtitle: Text("Cromossomo " +
+                              nsSnv.chr +
+                              " e referência " +
+                              nsSnv.ref),
+                        );
+                      },
+                    ),
+                  ),
+                )
+              ],
+            );
+            /*return Column(
+              children: snapshot.data
+                  .map((e) => ListTile(
+                        title: Text(e.result),
+                      ))
+                  .toList(),
+            );*/
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
+      /*body: Column(
         children: <Widget>[
           SizedBox(
             height: 40,
@@ -63,6 +127,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+      */
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {

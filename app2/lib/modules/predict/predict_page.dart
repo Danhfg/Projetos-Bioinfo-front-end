@@ -20,6 +20,36 @@ class PredictPage extends StatefulWidget {
 class _PredictPageState extends State<PredictPage> {
   var bloc = HomeModule.to.getBloc<PredictBloc>();
 
+  var chrList = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "X",
+    "Y",
+    "M"
+  ];
+
+  var nucList = ["A", "C", "T", "G"];
+
   Controller controller;
 
   @override
@@ -77,128 +107,153 @@ class _PredictPageState extends State<PredictPage> {
                   child: Form(
                     key: controller.formKey,
                     child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          TextFormField(
-                            autofocus: true,
-                            keyboardType: TextInputType.text,
-                            onSaved: (String chrInput) {
-                              bloc.chr = chrInput;
-                            },
-                            decoration: InputDecoration(
-                              labelText: "Cromossomo",
-                              labelStyle: TextStyle(
-                                color: Colors.black38,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 20,
-                              ),
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        TextFormField(
+                          autofocus: true,
+                          keyboardType: TextInputType.text,
+                          textCapitalization: TextCapitalization.sentences,
+                          maxLength: 2,
+                          maxLengthEnforced: true,
+                          onSaved: (String chrInput) {
+                            bloc.chr = chrInput;
+                          },
+                          decoration: InputDecoration(
+                            labelText: "Cromossomo",
+                            labelStyle: TextStyle(
+                              color: Colors.black38,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 20,
                             ),
-                            validator: (String value) {
-                              if (value.isEmpty) {
-                                return 'Campo não pdoe ser vazio!';
-                              }
-                              return null;
-                            },
                           ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          TextFormField(
-                            autofocus: true,
-                            keyboardType: TextInputType.number,
-                            onSaved: (String posInput) {
-                              bloc.pos = int.parse(posInput);
-                            },
-                            decoration: InputDecoration(
-                              labelText: "Posição",
-                              labelStyle: TextStyle(
-                                color: Colors.black38,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 20,
-                              ),
+                          validator: (String value) {
+                            if (value.isEmpty) {
+                              return 'Campo não pode ser vazio!';
+                            }
+                            if (!chrList.contains(value)) {
+                              return 'Cromosso inválido, por favor insira um cromossomo válido!';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          autofocus: true,
+                          keyboardType: TextInputType.number,
+                          onSaved: (String posInput) {
+                            bloc.pos = int.parse(posInput);
+                          },
+                          decoration: InputDecoration(
+                            labelText: "Posição",
+                            labelStyle: TextStyle(
+                              color: Colors.black38,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 20,
                             ),
-                            validator: (String value) {
-                              if (value.isEmpty) {
-                                return 'Campo não pode ser vazio!';
-                              }
-                              return null;
-                            },
                           ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          TextFormField(
-                            autofocus: true,
-                            keyboardType: TextInputType.text,
-                            onSaved: (String refInput) {
-                              bloc.ref = refInput;
-                            },
-                            decoration: InputDecoration(
-                                labelText: "Nucleotídeo referência",
-                                labelStyle: TextStyle(
-                                  color: Colors.black38,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 20,
-                                )),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          TextFormField(
-                            autofocus: true,
-                            keyboardType: TextInputType.text,
-                            onSaved: (String altInput) {
-                              bloc.alt = altInput;
-                            },
-                            decoration: InputDecoration(
-                              labelText: "Nucleotídeo alternativo",
-                              labelStyle: TextStyle(
-                                color: Colors.black38,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 20,
-                              ),
+                          validator: (String value) {
+                            if (value.isEmpty) {
+                              return 'Campo não pode ser vazio!';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          autofocus: true,
+                          keyboardType: TextInputType.text,
+                          textCapitalization: TextCapitalization.sentences,
+                          maxLength: 1,
+                          maxLengthEnforced: true,
+                          onSaved: (String refInput) {
+                            bloc.ref = refInput;
+                          },
+                          decoration: InputDecoration(
+                            labelText: "Nucleotídeo referência",
+                            labelStyle: TextStyle(
+                              color: Colors.black38,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 20,
                             ),
-                            validator: (String value) {
-                              if (value.isEmpty) {
-                                return 'Campo não pdoe ser vazio!';
-                              }
-                              return null;
-                            },
                           ),
-                          SizedBox(
-                            height: 40,
-                          ),
-                          Container(
-                            height: 60,
-                            alignment: Alignment.centerLeft,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                stops: [0.3, 1],
-                                colors: [
-                                  Colors.blueAccent,
-                                  Colors.lightBlueAccent,
-                                ],
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(5),
-                              ),
+                          validator: (String value) {
+                            if (value.isEmpty) {
+                              return 'Campo não pode ser vazio!';
+                            }
+                            if (!nucList.contains(value)) {
+                              return 'Nucleotídeo inválido!';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          autofocus: true,
+                          keyboardType: TextInputType.text,
+                          textCapitalization: TextCapitalization.sentences,
+                          maxLength: 1,
+                          maxLengthEnforced: true,
+                          onSaved: (String altInput) {
+                            bloc.alt = altInput;
+                          },
+                          decoration: InputDecoration(
+                            labelText: "Nucleotídeo alternativo",
+                            labelStyle: TextStyle(
+                              color: Colors.black38,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 20,
                             ),
-                            child: SizedBox.expand(
-                              child: FlatButton(
-                                onPressed: () => {
-                                  if (controller.validate())
-                                    {
-                                      bloc.responseIn.add(
-                                        NsSNVModel(
-                                          chr: bloc.chr,
-                                          pos: bloc.pos,
-                                          ref: bloc.ref,
-                                          alt: bloc.alt,
-                                        ),
+                          ),
+                          validator: (String value) {
+                            if (value.isEmpty) {
+                              return 'Campo não pdoe ser vazio!';
+                            }
+                            if (!nucList.contains(value)) {
+                              return 'Nucleotídeo inválido!';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        Container(
+                          height: 60,
+                          alignment: Alignment.centerLeft,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              stops: [0.3, 1],
+                              colors: [
+                                Colors.blueAccent,
+                                Colors.lightBlueAccent,
+                              ],
+                            ),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                          ),
+                          child: SizedBox.expand(
+                            child: FlatButton(
+                              onPressed: () => {
+                                if (controller.validate())
+                                  {
+                                    bloc.responseIn.add(
+                                      NsSNVModel(
+                                        chr: bloc.chr,
+                                        pos: bloc.pos,
+                                        ref: bloc.ref,
+                                        alt: bloc.alt,
                                       ),
-                                      /*bloc.postDecisionTree(
+                                    ),
+                                    /*bloc.postDecisionTree(
                                         NsSNVModel(
                                           chr: bloc.chr,
                                           pos: bloc.pos,
@@ -206,96 +261,49 @@ class _PredictPageState extends State<PredictPage> {
                                           alt: bloc.alt,
                                         ),
                                       ),*/
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        content: Text("Result: "),
+                                      ),
+                                    ),
+                                  }
+                                /*else
+                                  {
+                                    {
                                       showDialog(
                                         context: context,
                                         builder: (context) => AlertDialog(
-                                          content: Text("Result: "),
+                                          // title: Text('Are you sure?'),
+                                          content: Text("ERROR"),
                                         ),
                                       ),
-                                    }
-                                  else
-                                    {
-                                      {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) => AlertDialog(
-                                            // title: Text('Are you sure?'),
-                                            content: Text("ERROR"),
-                                          ),
-                                        ),
-                                      },
-                                    }
-                                },
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Text(
-                                      "Arvore de decisão",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                      ),
-                                      textAlign: TextAlign.right,
+                                    },
+                                  }*/
+                              },
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    "Solicitar Predição",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                      fontSize: 20,
                                     ),
-                                    Container(
-                                      child: SizedBox(
-                                        child: Text("?"),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 40,
-                          ),
-                          Container(
-                            height: 60,
-                            alignment: Alignment.centerLeft,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                stops: [0.6, 1],
-                                colors: [
-                                  Colors.green,
-                                  Colors.greenAccent,
+                                    textAlign: TextAlign.right,
+                                  ),
                                 ],
                               ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(5),
-                              ),
                             ),
-                            child: SizedBox.expand(
-                              child: FlatButton(
-                                onPressed: () => {},
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Text(
-                                      "Mútiplos preditores",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                      ),
-                                      textAlign: TextAlign.right,
-                                    ),
-                                    Container(
-                                      child: SizedBox(
-                                        child: Text("?"),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          )
-                        ]),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 40,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               );
