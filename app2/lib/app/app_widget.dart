@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:app2/modules/home/home_module.dart';
+import 'package:app2/modules/predict/predict_module.dart';
 
 class AppWidget extends StatelessWidget {
   @override
@@ -10,7 +10,8 @@ class AppWidget extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeModule(),
+      debugShowCheckedModeBanner: false,
+      home: PredictModule(),
     );
   }
 }

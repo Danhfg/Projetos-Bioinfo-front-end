@@ -4,6 +4,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 
 class AuthBloc extends BlocBase {
+  String username = "danielhenriquefg@gmail.com";
+  String password = "teste123";
+
   AuthBloc() {
     repo = AppModule.to.getDependency<AuthRepository>();
   }
@@ -17,12 +20,13 @@ class AuthBloc extends BlocBase {
   String jwt;
 
   Future<String> login() async {
-    var res = await repo.login(
-        {"username": "danielhenriquefg@gmail.com", "password": "teste123"});
+    var res = await repo.login({"username": username, "password": password});
     jwt = res /*['token']*/;
-    SharedPreferences.getInstance().then((value) {
-      value.setString("jwt", jwt);
-    });
+    SharedPreferences.getInstance().then(
+      (value) {
+        value.setString("jwt", jwt);
+      },
+    );
     return jwt;
   }
 }

@@ -1,52 +1,67 @@
-import 'package:app2/shared/models/nsSNVModel.dart';
+import 'package:app2/shared/models/nsSNVGetModel.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 
-import 'package:app2/modules/home/home_repository.dart';
+import 'package:app2/modules/predict/predict_repository.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PredictBloc extends BlocBase {
-  final HomeRepository homeRepository;
+  final PredictRepository predictRepository;
 
-  PredictBloc(this.homeRepository) {
-    responseOut = resultPrediction.switchMap(postDecisionTree);
-  }
+  String email;
 
-  String chr;
-  int pos;
-  String ref;
-  String alt;
+  String password;
 
-  var resultPrediction = BehaviorSubject<NsSNVModel>();
+  PredictBloc(this.predictRepository);
 
-  NsSNVModel get responseValue => resultPrediction.value;
-  Observable<int> responseOut;
-  Sink<NsSNVModel> get responseIn => resultPrediction.sink;
-
-  Stream<int> postDecisionTree(NsSNVModel nsSNVModel) async* {
-    yield 0;
-    try {
-      var response = await homeRepository.postDecisionTree(nsSNVModel);
-      yield response;
-    } catch (e) {
-      throw e;
-    }
-  }
+  var resultPrediction = BehaviorSubject<List<NsSNVGETModel>>();
+  Sink<List<NsSNVGETModel>> get responseIn => resultPrediction.sink;
+  Observable<List<NsSNVGETModel>> get responseOut => resultPrediction.stream;
 /*
-  void getDecisionTree(NsSNVModel nsSNVModel) async {
+  getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    jwt = prefs.get("jwt");
+  }
+*/
+
+  String jwt;
+/*
+  Future<String> login() async {
+    var res = await predictRepository.login(
+        {"username": "danielhenriquefg@gmail.com", "password": "teste123"});
+    print(res);
+    jwt = res /*['token']*/;
+    SharedPreferences.getInstance().then((value) {
+      value.setString("jwt", jwt);
+    });
+    return jwt;
+  }
+*/
+  void getResults() async {
     responseIn.add(null);
     try {
-      var res = await homeRepository.postDecisionTree(nsSNVModel);
-      responseIn.add(res);
+      var response = await predictRepository.getResult();
+      print(response);
+      responseIn.add(response);
     } catch (e) {
       resultPrediction.addError(e);
     }
   }
 
-  void getAllPrediction(NsSNVModel nsSNVModel) async {}*/
-
+/*
+  void postDecisionTree(NsSNVModel nsSNVModel) async {
+    try {
+      var res = await predictRepository.postDecisionTree(nsSNVModel);
+      responseIn.add(res);
+    } catch (e) {
+      resultPrediction.addError(e);
+    }
+  }
+*/
   //dispose will be called automatically by closing its streams
   @override
   void dispose() {
+    resultPrediction.close();
     super.dispose();
   }
 }

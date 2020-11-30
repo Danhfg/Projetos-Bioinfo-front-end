@@ -4,7 +4,7 @@ import 'package:app2/shared/models/nsSNVGetModel.dart';
 import 'package:app2/shared/models/nsSNVModel.dart';
 import 'package:dio/dio.dart';
 
-class HomeRepository {
+class PredictRepository {
   final CustomDio dio;
   final Dio dio2 = Dio();
 
@@ -23,7 +23,7 @@ class HomeRepository {
     )
       ;*/
 
-  HomeRepository(this.dio);
+  PredictRepository(this.dio);
 
   Future<int> postDecisionTree(NsSNVModel nsSNV) async {
     /*NsSNVModel nsSNV = NsSNVModel(
