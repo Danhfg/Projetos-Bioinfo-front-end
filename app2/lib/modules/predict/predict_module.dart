@@ -1,4 +1,5 @@
 import 'package:app2/modules/predictResult/predictResult_bloc.dart';
+import 'package:app2/modules/signin/signin_page.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
@@ -22,12 +23,12 @@ class PredictModule extends ModuleWidget {
           ),
         ),
         Bloc(
-          (i) => PredictRequestBloc(
+          (i) => new PredictRequestBloc(
             PredictModule.to.getDependency<PredictRepository>(),
           ),
         ),
         Bloc(
-          (i) => PredictResultBloc(),
+          (i) => new PredictResultBloc(),
         ),
       ];
 
@@ -39,7 +40,7 @@ class PredictModule extends ModuleWidget {
 
   @override
   Widget get view => PredictPage();
-  //Widget get view => PredictPage();
+  //Widget get view => SignInPage();
 
   static Inject get to => Inject<PredictModule>.of();
 }

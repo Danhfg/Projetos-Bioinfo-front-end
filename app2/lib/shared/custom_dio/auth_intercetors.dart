@@ -16,8 +16,9 @@ class AuthIntercetors extends InterceptorsWrapper {
     if (jwt == null) {
       dio.client.lock();
 
-      jwt = await auth.login();
-      print(jwt);
+      /*jwt = */ await auth.login();
+      print(auth.jwt);
+      var jwt = auth.jwt;
       options.headers.addAll({"Authorization": jwt});
 
       dio.client.unlock();
@@ -43,7 +44,7 @@ class AuthIntercetors extends InterceptorsWrapper {
         "ERROR[${error.response?.statusCode}] => PATH: ${error.request.path}");
     print(error);
 
-    if (error.response?.statusCode == 500) {
+    if (error.response?.statusCode == 401) {
       CustomDio dio = AppModule.to.getDependency<CustomDio>();
       AuthBloc auth = AppModule.to.getBloc<AuthBloc>();
 

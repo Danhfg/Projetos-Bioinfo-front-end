@@ -11,7 +11,7 @@ class AppModule extends ModuleWidget {
   @override
   List<Bloc> get blocs => [
         Bloc((i) => AppBloc()),
-        Bloc((i) => AuthBloc()),
+        Bloc((i) => new AuthBloc()),
       ];
 
   @override

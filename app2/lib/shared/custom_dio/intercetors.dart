@@ -40,5 +40,6 @@ class CustomIntercetors extends InterceptorsWrapper {
   onError(DioError e) {
     //Exception
     print("ERROR[${e.response?.statusCode}] => PATH: ${e.request.path}");
+    print(e);
   }
 }

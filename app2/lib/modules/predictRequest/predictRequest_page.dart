@@ -71,9 +71,13 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               print("ERROR");
+              Timer(Duration(seconds: 2), () {
+                bloc.reset();
+                Navigator.pop(context);
+              });
               return Center(
                 child: Text(
-                  "${snapshot.error}",
+                  "Solicitação não concluída, tente novamente mais tarde, se o problema persistir entre em contato com nosso suporte",
                   style: TextStyle(fontSize: 25),
                 ),
               );
@@ -87,6 +91,7 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                 );
               } else {
                 Timer(Duration(seconds: 1), () {
+                  bloc.reset();
                   Navigator.pop(context);
                 });
                 return Center(
@@ -232,8 +237,8 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                               end: Alignment.bottomRight,
                               stops: [0.3, 1],
                               colors: [
-                                Colors.blueAccent,
-                                Colors.lightBlueAccent,
+                                Colors.lightGreen,
+                                Colors.green,
                               ],
                             ),
                             borderRadius: BorderRadius.all(
@@ -243,6 +248,7 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                           child: SizedBox.expand(
                             child: FlatButton(
                               onPressed: () => {
+                                print("AAAA"),
                                 if (controller.validate())
                                   {
                                     bloc.responseIn.add(
@@ -253,33 +259,7 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                                         alt: bloc.alt,
                                       ),
                                     ),
-                                    /*bloc.postDecisionTree(
-                                        NsSNVModel(
-                                          chr: bloc.chr,
-                                          pos: bloc.pos,
-                                          ref: bloc.ref,
-                                          alt: bloc.alt,
-                                        ),
-                                      ),*/
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                        content: Text("Result: "),
-                                      ),
-                                    ),
                                   }
-                                /*else
-                                  {
-                                    {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                          // title: Text('Are you sure?'),
-                                          content: Text("ERROR"),
-                                        ),
-                                      ),
-                                    },
-                                  }*/
                               },
                               child: Row(
                                 mainAxisAlignment:

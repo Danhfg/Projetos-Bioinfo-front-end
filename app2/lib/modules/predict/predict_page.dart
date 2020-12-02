@@ -70,25 +70,56 @@ class _PredictPageState extends State<PredictPage> {
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
                         var nsSnv = snapshot.data[index];
-                        return ListTile(
-                          title: Text("Posição " +
-                              nsSnv.pos.toString() +
-                              " e mutação " +
-                              nsSnv.alt),
-                          subtitle: Text("Cromossomo " +
-                              nsSnv.chr +
-                              " e referência " +
-                              nsSnv.ref),
-                          onTap: () {
-                            blocRequest.processPrediction(nsSnv.result);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PredictResultPage(),
-                              ),
-                            );
-                          },
-                        );
+                        if (!nsSnv.alive) {
+                          return ListTile(
+                            title: Text("Posição " +
+                                nsSnv.pos.toString() +
+                                " e mutação " +
+                                nsSnv.alt),
+                            subtitle: Text("Cromossomo " +
+                                nsSnv.chr +
+                                " e referência " +
+                                nsSnv.ref),
+                            trailing: Icon(
+                              Icons.check_circle,
+                              color: Colors.lightGreen,
+                            ),
+                            onTap: () {
+                              blocRequest.processPrediction(nsSnv.result);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PredictResultPage(),
+                                ),
+                              );
+                            },
+                          );
+                        } else {
+                          return ListTile(
+                            title: Text("Posição " +
+                                nsSnv.pos.toString() +
+                                " e mutação " +
+                                nsSnv.alt),
+                            subtitle: Text("Cromossomo " +
+                                nsSnv.chr +
+                                " e referência " +
+                                nsSnv.ref),
+                            trailing: Icon(
+                              Icons.more_horiz,
+                              color: Colors.yellowAccent,
+                            ),
+                            onTap: () {
+                              blocRequest.processPrediction(nsSnv.result);
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  content: Text(
+                                      "Requisição ainda não processada, espere alguns minutos!"),
+                                ),
+                              );
+                            },
+                          );
+                        }
                       },
                     ),
                   ),

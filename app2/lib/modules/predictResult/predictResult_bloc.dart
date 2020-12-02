@@ -1,13 +1,20 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:flutter/material.dart';
 
 class PredictResultBloc extends BlocBase {
   String resultRequest;
 
-  PredictResultBloc();
+  PredictResultBloc() {
+    allPredictors = {};
+    dtPrediction = "";
+    exacResut = null;
+  }
 
   Map<String, List<String>> allPredictors = {};
 
   String dtPrediction;
+
+  Color color;
 
   String exacResut;
 
@@ -53,37 +60,38 @@ class PredictResultBloc extends BlocBase {
   };
 */
   void processPrediction(String result) {
+    exacResut = "0";
+    common = "0";
     allPredictors = {};
     //String resultPorcess = result.replaceAll("dbNSFP_", "");
     List<String> resultList =
         result.split("\t")[7].replaceAll("dbNSFP_", "").split(";");
-    print(resultList);
+    print(result);
     for (String item in resultList) {
       if (item.contains("_pred=")) {
         List<String> singlePred = item.split("=");
-        print(singlePred[1].split(","));
         allPredictors[singlePred[0].toString()] = singlePred[1].split(",");
       }
-      if (item.contains("ExAC_AF")) {
+      if (item == "ExAC_AF") {
         exacResut = item.split("=")[1];
       }
-      if (item.contains("1000Gp3_AF")) {
+      if (item == "1000Gp3_AF") {
         common = item.split("=")[1];
       }
     }
-    print("A");
 
     if ((allPredictors["SIFT_pred"] != null &&
             allPredictors["SIFT_pred"].contains("T")) &&
         (allPredictors["Polyphen2_HDIV_pred"] != null &&
-            allPredictors["Polyphen2_HDIV_pred"].contains("P") &&
             allPredictors["Polyphen2_HDIV_pred"].contains("B")) &&
         (allPredictors["PROVEAN_pred"] != null &&
             allPredictors["PROVEAN_pred"].contains("N"))) {
       dtPrediction = "Neutra";
+      color = Colors.lightGreen;
     } else {
       if (exacResut != null && double.parse(exacResut) < 0.0001) {
         dtPrediction = "Patogênica";
+        color = Colors.red;
       } else {
         int nDAMAGE = 0;
         if (allPredictors["SIFT_pred"] != null &&
@@ -91,7 +99,8 @@ class PredictResultBloc extends BlocBase {
           ++nDAMAGE;
         }
         if (allPredictors["Polyphen2_HDIV_pred"] != null &&
-            allPredictors["Polyphen2_HDIV_pred"].contains("D")) {
+            allPredictors["Polyphen2_HDIV_pred"].contains("D") &&
+            allPredictors["Polyphen2_HDIV_pred"].contains("P")) {
           ++nDAMAGE;
         }
         if (allPredictors["PROVEAN_pred"] != null &&
@@ -116,19 +125,31 @@ class PredictResultBloc extends BlocBase {
           ++nDAMAGE;
         }
         if (allPredictors["Polyphen2_HVAR_pred"] != null &&
-            allPredictors["Polyphen2_HVAR_pred"].contains("D")) {
+            allPredictors["Polyphen2_HVAR_pred"].contains("D") &&
+            allPredictors["Polyphen2_HVAR_pred"].contains("P")) {
           ++nDAMAGE;
         }
         if (allPredictors["MutationTaster_pred"] != null &&
-            allPredictors["MutationTaster_pred"].contains("D")) {
+            allPredictors["MutationTaster_pred"].contains("D") &&
+            allPredictors["MutationTaster_pred"].contains("A")) {
           ++nDAMAGE;
         }
         if (nDAMAGE <= 6) {
           dtPrediction = "Neutra";
-        } else {
+          color = Colors.lightGreen;
+        } else if (double.parse(common) < 0.0001) {
           dtPrediction = "Patogênica";
+          color = Colors.red;
+        } else {
+          dtPrediction = "Neutra";
+          color = Colors.lightGreen;
         }
       }
+    }
+
+    if (allPredictors.keys.length == 0) {
+      dtPrediction = "Quantidade de preditores insuficiente!";
+      color = Colors.black;
     }
   }
 }

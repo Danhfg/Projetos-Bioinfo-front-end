@@ -10,6 +10,10 @@ class PredictRequestBloc extends BlocBase {
   PredictRequestBloc(this.predictRepository) {
     responseOut = resultPrediction.switchMap(postDecisionTree);
   }
+  reset() {
+    resultPrediction = BehaviorSubject<NsSNVModel>();
+    responseOut = resultPrediction.switchMap(postDecisionTree);
+  }
 
   String chr;
   int pos;
