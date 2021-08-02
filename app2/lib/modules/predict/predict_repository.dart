@@ -34,7 +34,7 @@ class PredictRepository {
     );*/
     try {
       var response = await dio.client.post(
-        "http://192.168.0.46:8443/api/predict/decisionTree",
+        "http://192.168.1.11:8443/api/predict/decisionTree",
         //"/posts",
         data: nsSNV.toMap(),
       );
@@ -49,7 +49,7 @@ class PredictRepository {
       print("AAAAAAAAAAAAAAAA");
       var res;
       var response = await dio.client
-          .get("http://192.168.0.46:8443/api/predict/result")
+          .get("http://192.168.1.11:8443/api/predict/result")
           .then((value) => {print(value), res = value});
       //print("BBBBBBBBBBB");
       //print(res.data);
@@ -66,12 +66,12 @@ class PredictRepository {
     try {
       //dio2.interceptors.add(CustomIntercetors());
       var response1 = await dio2.post(
-        "http://192.168.0.46:8443/api/sign-in/",
+        "http://192.168.1.11:8443/api/sign-in/",
         data: data,
       );
       print(response1.data);
       var response = await dio.client.post(
-        "http://192.168.0.46:8443/api/sign-in/",
+        "http://192.168.1.11:8443/api/sign-in/",
         data: data,
       );
       /*var response = await dio.client

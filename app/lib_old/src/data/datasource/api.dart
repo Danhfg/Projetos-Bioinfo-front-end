@@ -15,7 +15,7 @@ class Api {
       alt: alt,
     );
     final response = await dio.get(
-      "http://192.168.0.46:8443/api/predict/decisionTree",
+      "http://192.168.1.11:8443/api/predict/decisionTree",
       queryParameters: nsSNV.toMap(),
     );
     if (response.statusCode == 200)
@@ -33,7 +33,7 @@ class Api {
     );
 
     Response response = await dio.get(
-      "http://192.168.0.46:8443/api/predict/allPretictiors",
+      "http://192.168.1.11:8443/api/predict/allPretictiors",
       queryParameters: nsSNV.toMap(),
     );
     return response.data;

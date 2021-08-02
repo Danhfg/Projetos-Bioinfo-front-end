@@ -1,5 +1,4 @@
 import 'package:app2/modules/predictResult/predictResult_bloc.dart';
-import 'package:app2/modules/signin/signin_page.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
@@ -7,9 +6,6 @@ import 'package:app2/modules/predict/predict_bloc.dart';
 import 'package:app2/modules/predict/predict_page.dart';
 import 'package:app2/modules/predict/predict_repository.dart';
 import 'package:app2/modules/predictRequest/predictRequest_bloc.dart';
-import 'package:app2/modules/predictRequest/predictRequest_page.dart';
-import 'package:app2/shared/auth/auth_bloc.dart';
-import 'package:app2/shared/auth/auth_repository.dart';
 import 'package:app2/shared/custom_dio/curstom_dio.dart';
 
 import '../../app/app_module.dart';

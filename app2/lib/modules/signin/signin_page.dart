@@ -1,10 +1,8 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app2/app/app_module.dart';
-import 'package:app2/modules/predict/predict_page.dart';
 import 'package:app2/modules/signup/signup_page.dart';
 import 'package:app2/shared/auth/auth_bloc.dart';
 import 'package:app2/shared/models/signinModel.dart';
@@ -15,10 +13,29 @@ import 'package:app2/shared/navigator/navigatorservice.dart';
   _SignInPageState createState() => _SignInPageState();
 }*/
 
-class SignInPage extends StatelessWidget {
+// ignore: must_be_immutable
+class SignInPage extends StatefulWidget {
+  @override
+  _SignInPageState createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
   AuthBloc auth = AppModule.to.getBloc<AuthBloc>();
+
   final _formKey = GlobalKey<FormState>();
+
   String aux;
+
+  void reset() {
+    AppModule.to.disposeBloc();
+    Navigator.pushReplacement(
+      context,
+      PageRouteBuilder(
+        transitionDuration: Duration.zero,
+        pageBuilder: (_, __, ___) => new SignInPage(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -332,12 +349,7 @@ class SignInPage extends StatelessWidget {
                               textAlign: TextAlign.center,
                             ),
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SignupPage(),
-                                ),
-                              );
+                              Navigator.pushNamed(context, '/signup');
                             },
                           ),
                         ),

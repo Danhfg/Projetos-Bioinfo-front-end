@@ -13,7 +13,7 @@ class AuthRepository {
   }
   Future<String> login(Map<String, dynamic> data) async {
     try {
-      var response = await client.post("http://192.168.0.46:8443/api/sign-in/",
+      var response = await client.post("http://192.168.1.11:8443/api/sign-in/",
           data: data);
       //print(response.data);
       return response.data;
@@ -25,7 +25,7 @@ class AuthRepository {
   Future<Response> logon(SigninModel data) async {
     try {
       var response = await client.post(
-        "http://192.168.0.46:8443/api/sign-up/",
+        "http://192.168.1.11:8443/api/sign-up/",
         data: data.toMap(),
       );
       //print(response.data);
@@ -38,7 +38,7 @@ class AuthRepository {
   Future<Response> loginmodel(SigninModel data) async {
     try {
       var response = await client.post(
-        "http://192.168.0.46:8443/api/sign-in/",
+        "http://192.168.1.11:8443/api/sign-in/",
         data: data.toMap(),
       );
       //print(response.data);
