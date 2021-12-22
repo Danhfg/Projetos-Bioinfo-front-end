@@ -1,4 +1,5 @@
 import 'package:app2/app/app_module.dart';
+import 'package:app2/modules/signin/signin_page.dart';
 import 'package:app2/shared/auth/auth_repository.dart';
 import 'package:app2/shared/models/signinModel.dart';
 import 'package:rxdart/rxdart.dart';
@@ -8,6 +9,7 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 class AuthBloc extends BlocBase {
   String username/*= "danielhenriquefg@gmail.com"*/;
   String password/*= "teste123"*/;
+  String name;
 
   AuthBloc() {
     resultLogon = BehaviorSubject<SigninModel>();
@@ -17,6 +19,7 @@ class AuthBloc extends BlocBase {
     responseOnOut = resultLogon.switchMap(logonT);
     username = "";
     password = "";
+    name = "";
   }
 
   getToken() async {

@@ -5,8 +5,9 @@ class NsSNVModel {
   final int pos;
   final String ref;
   final String alt;
+  String identification;
 
-  NsSNVModel({this.chr, this.pos, this.ref, this.alt});
+  NsSNVModel({this.chr, this.pos, this.ref, this.alt, this.identification});
 
   Map<String, dynamic> toMap() {
     return {
@@ -14,6 +15,7 @@ class NsSNVModel {
       'pos': pos,
       'ref': ref,
       'alt': alt,
+      'identification': identification,
     };
   }
 
@@ -25,6 +27,7 @@ class NsSNVModel {
       pos: map['pos'],
       ref: map['ref'],
       alt: map['alt'],
+      identification: map['identification'],
     );
   }
 

@@ -13,7 +13,6 @@ import 'package:app2/shared/navigator/navigatorservice.dart';
   _SignInPageState createState() => _SignInPageState();
 }*/
 
-// ignore: must_be_immutable
 class SignInPage extends StatefulWidget {
   @override
   _SignInPageState createState() => _SignInPageState();
@@ -23,8 +22,6 @@ class _SignInPageState extends State<SignInPage> {
   AuthBloc auth = AppModule.to.getBloc<AuthBloc>();
 
   final _formKey = GlobalKey<FormState>();
-
-  String aux;
 
   void reset() {
     AppModule.to.disposeBloc();

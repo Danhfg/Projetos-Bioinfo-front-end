@@ -5,48 +5,54 @@ import 'package:app2/modules/predict/predict_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class PredictBloc extends BlocBase {
   final PredictRepository predictRepository;
 
-  String email;
-
-  String password;
-
-  PredictBloc(this.predictRepository);
+  PredictBloc(this.predictRepository) {
+    offset = 0;
+    totalPages = 1;
+    order = "desc";
+    sort = "idNsSNV";
+  }
 
   var resultPrediction = BehaviorSubject<List<NsSNVGETModel>>();
   Sink<List<NsSNVGETModel>> get responseIn => resultPrediction.sink;
   Observable<List<NsSNVGETModel>> get responseOut => resultPrediction.stream;
-/*
-  getToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    jwt = prefs.get("jwt");
-  }
-*/
 
-  String jwt;
-/*
-  Future<String> login() async {
-    var res = await predictRepository.login(
-        {"username": "danielhenriquefg@gmail.com", "password": "teste123"});
-    print(res);
-    jwt = res /*['token']*/;
-    SharedPreferences.getInstance().then((value) {
-      value.setString("jwt", jwt);
-    });
-    return jwt;
-  }
-*/
+  List<NsSNVGETModel> list = [];
+
+  int offset;
+  int totalPages;
+  String sort;
+  String order;
+
   void getResults() async {
     responseIn.add(null);
     try {
-      var response = await predictRepository.getResult();
-      print(response);
-      responseIn.add(response);
+      if (offset < totalPages) {
+        final response = await predictRepository.getResult(
+            this.offset, this.sort, this.order);
+        ++offset;
+        totalPages = response.totalPages;
+        responseIn.add(response.content);
+      }
     } catch (e) {
       resultPrediction.addError(e);
+    }
+  }
+
+  Future<Null> getResult() async {
+    try {
+      if (offset < totalPages) {
+        final response = await predictRepository.getResult(
+            this.offset, this.sort, this.order);
+        // ++offset;
+        totalPages = response.totalPages;
+        this.list.addAll(response.content);
+      }
+    } catch (e) {
+      throw e;
     }
   }
 
@@ -70,6 +76,15 @@ class PredictBloc extends BlocBase {
     int nDAMAGE = 0;
     if (allPredictors["SIFT_pred"] != null &&
         allPredictors["SIFT_pred"].contains("D")) {
+      ++nDAMAGE;
+    }
+    if (allPredictors["SIFT4G_pred"] != null &&
+        allPredictors["SIFT4G_pred"].contains("D")) {
+      ++nDAMAGE;
+    }
+    if (allPredictors["Polyphen2_HVAR_pred"] != null &&
+        allPredictors["Polyphen2_HVAR_pred"].contains("D") &&
+        allPredictors["Polyphen2_HVAR_pred"].contains("P")) {
       ++nDAMAGE;
     }
     if (allPredictors["Polyphen2_HDIV_pred"] != null &&
@@ -108,22 +123,56 @@ class PredictBloc extends BlocBase {
         allPredictors["MutationTaster_pred"].contains("A")) {
       ++nDAMAGE;
     }
+    if (allPredictors["MetaLR_pred"] != null &&
+        allPredictors["MetaLR_pred"].contains("D")) {
+      ++nDAMAGE;
+    }
+    if (allPredictors["M-CAP_pred"] != null &&
+        allPredictors["M-CAP_pred"].contains("D")) {
+      ++nDAMAGE;
+    }
+    if (allPredictors["PrimateAI_pred"] != null &&
+        allPredictors["PrimateAI_pred"].contains("D")) {
+      ++nDAMAGE;
+    }
+    if (allPredictors["DEOGEN2_pred"] != null &&
+        allPredictors["DEOGEN2_pred"].contains("D")) {
+      ++nDAMAGE;
+    }
+    if (allPredictors["BayesDel_addAF_pred"] != null &&
+        allPredictors["BayesDel_addAF_pred"].contains("D")) {
+      ++nDAMAGE;
+    }
+    if (allPredictors["BayesDel_noAF_pred"] != null &&
+        allPredictors["BayesDel_noAF_pred"].contains("D")) {
+      ++nDAMAGE;
+    }
+    if (allPredictors["Clinpred_pred"] != null &&
+        allPredictors["Clinpred_pred"].contains("D")) {
+      ++nDAMAGE;
+    }
+    if (allPredictors["LIST-S2_pred"] != null &&
+        allPredictors["LIST-S2_pred"].contains("D")) {
+      ++nDAMAGE;
+    }
+    if (allPredictors["Aloft_pred"] != null &&
+        allPredictors["Aloft_pred"].contains("D")) {
+      ++nDAMAGE;
+    }
+    if (allPredictors["fathmm-MKL_coding_pred"] != null &&
+        allPredictors["fathmm-MKL_coding_pred"].contains("D")) {
+      ++nDAMAGE;
+    }
+    if (allPredictors["fathmm-XF_coding_pred"] != null &&
+        allPredictors["fathmm-XF_coding_pred"].contains("D")) {
+      ++nDAMAGE;
+    }
 
     print(result);
 
     return nDAMAGE;
   }
 
-/*
-  void postDecisionTree(NsSNVModel nsSNVModel) async {
-    try {
-      var res = await predictRepository.postDecisionTree(nsSNVModel);
-      responseIn.add(res);
-    } catch (e) {
-      resultPrediction.addError(e);
-    }
-  }
-*/
   //dispose will be called automatically by closing its streams
   @override
   void dispose() {

@@ -1,24 +1,20 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app2/app/app_module.dart';
-import 'package:app2/modules/predict/predict_page.dart';
-import 'package:app2/modules/signup/signup_page.dart';
 import 'package:app2/shared/auth/auth_bloc.dart';
 import 'package:app2/shared/models/signinModel.dart';
 import 'package:app2/shared/navigator/navigatorservice.dart';
 
-/*class SignupPage extends StatefulWidget {
+class SignupPage extends StatefulWidget {
   @override
   _SignupPageState createState() => _SignupPageState();
-}*/
+}
 
-class SignupPage extends StatelessWidget {
+class _SignupPageState extends State<SignupPage> {
   AuthBloc auth = AppModule.to.getBloc<AuthBloc>();
   final _formKey = GlobalKey<FormState>();
-  String aux;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +54,31 @@ class SignupPage extends StatelessWidget {
                           style: TextStyle(fontSize: 20),
                           onChanged: (String email) {
                             auth.username = email;
+                          },
+                          validator: (String value) {
+                            if (value.isEmpty) {
+                              return 'Campo não pode ser vazio!';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          // autofocus: true,
+                          keyboardType: TextInputType.name,
+                          decoration: InputDecoration(
+                            labelText: "Nome",
+                            labelStyle: TextStyle(
+                              color: Colors.black38,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 20,
+                            ),
+                          ),
+                          style: TextStyle(fontSize: 20),
+                          onChanged: (String name) {
+                            auth.name = name;
                           },
                           validator: (String value) {
                             if (value.isEmpty) {

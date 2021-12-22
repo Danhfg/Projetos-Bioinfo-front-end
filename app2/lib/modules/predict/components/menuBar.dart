@@ -1,3 +1,5 @@
+import 'package:app2/modules/predict/components/menuBar_bloc.dart';
+import 'package:app2/modules/predict/predict_module.dart';
 import 'package:app2/modules/signin/signin_page.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +9,13 @@ class MenuBar extends StatefulWidget {
 }
 
 class _MenuBarState extends State<MenuBar> {
+  MenuBarBloc menuBarBloc = PredictModule.to.getBloc<MenuBarBloc>();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -14,8 +23,8 @@ class _MenuBarState extends State<MenuBar> {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text("Daniel Henrique Ferreira Gomes"),
-            accountEmail: Text("danielhenriquefg@gmail.com"),
+            accountName: Text(menuBarBloc.user.name),
+            accountEmail: Text(menuBarBloc.user.username),
           ),
           ListTile(
             leading: Icon(Icons.menu_book),

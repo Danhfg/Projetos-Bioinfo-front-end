@@ -1,5 +1,4 @@
 import 'package:app2/modules/signin/signin_module.dart';
-import 'package:app2/modules/signin/signin_page.dart';
 import 'package:app2/modules/signup/signup_page.dart';
 import 'package:app2/shared/constants.dart';
 import 'package:app2/shared/navigator/navigatorservice.dart';

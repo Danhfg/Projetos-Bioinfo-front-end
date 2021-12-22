@@ -1,12 +1,10 @@
 import 'package:app2/shared/custom_dio/curstom_dio.dart';
-import 'package:app2/shared/custom_dio/intercetors.dart';
-import 'package:app2/shared/models/nsSNVGetModel.dart';
 import 'package:app2/shared/models/nsSNVModel.dart';
+import 'package:app2/shared/models/paginationNsSNVGETModel.dart';
 import 'package:dio/dio.dart';
 
 class PredictRepository {
   final CustomDio dio;
-  final Dio dio2 = Dio();
 
   /*Dio _server = Dio(
     BaseOptions(
@@ -34,7 +32,7 @@ class PredictRepository {
     );*/
     try {
       var response = await dio.client.post(
-        "http://192.168.1.11:8443/api/predict/decisionTree",
+        "/api/predict/process",
         //"/posts",
         data: nsSNV.toMap(),
       );
@@ -44,43 +42,18 @@ class PredictRepository {
     }
   }
 
-  Future<List<NsSNVGETModel>> getResult() async {
+  Future<PaginationNsSNVGETModel> getResult(
+      int page, String sort, String order) async {
     try {
-      print("AAAAAAAAAAAAAAAA");
-      var res;
-      var response = await dio.client
-          .get("http://192.168.1.11:8443/api/predict/result")
-          .then((value) => {print(value), res = value});
-      //print("BBBBBBBBBBB");
-      //print(res.data);
-      return (res.data as List)
-          .map((item) => NsSNVGETModel.fromJson(item))
-          .toList();
+      var response = await dio.client.get("/api/predict/results?page=" +
+          page.toString() +
+          "&sort=" +
+          sort +
+          "," +
+          order);
+      return PaginationNsSNVGETModel.fromJson(response.data);
     } on DioError catch (e) {
-      print("CCCCCCCCCCCCC");
       throw (e.message);
     }
   }
-/*
-  Future<String> login(Map<String, dynamic> data) async {
-    try {
-      //dio2.interceptors.add(CustomIntercetors());
-      var response1 = await dio2.post(
-        "http://192.168.1.11:8443/api/sign-in/",
-        data: data,
-      );
-      print(response1.data);
-      var response = await dio.client.post(
-        "http://192.168.1.11:8443/api/sign-in/",
-        data: data,
-      );
-      /*var response = await dio.client
-          .post("/api/sign-in/", data: data);
-      print("BBBBBBBBBBBBBBBBB");*/
-      return response1.data;
-    } on DioError catch (e) {
-      print("AAAAAAAAAAAAAAAAA");
-      throw (e.message);
-    }
-  }*/
 }

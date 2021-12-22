@@ -3,13 +3,15 @@ import 'dart:convert';
 class SigninModel {
   final String username;
   final String password;
+  final String name;
 
-  SigninModel({this.username, this.password});
+  SigninModel({this.username, this.password, this.name});
 
   Map<String, dynamic> toMap() {
     return {
       'username': username,
       'password': password,
+      'name': name,
     };
   }
 
@@ -19,6 +21,7 @@ class SigninModel {
     return SigninModel(
       username: map['username'],
       password: map['password'],
+      name: map['name'],
     );
   }
 

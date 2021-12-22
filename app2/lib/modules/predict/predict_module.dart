@@ -1,3 +1,5 @@
+import 'package:app2/modules/predict/components/menuBar_bloc.dart';
+import 'package:app2/modules/predict/components/menuBar_repository.dart';
 import 'package:app2/modules/predictResult/predictResult_bloc.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
@@ -26,17 +28,23 @@ class PredictModule extends ModuleWidget {
         Bloc(
           (i) => new PredictResultBloc(),
         ),
+        Bloc(
+          (i) => new MenuBarBloc(
+            PredictModule.to.getDependency<MenuBarRepository>(),
+          ),
+        )
       ];
 
   @override
   List<Dependency> get dependencies => [
         Dependency(
-            (i) => PredictRepository(AppModule.to.getDependency<CustomDio>()))
+            (i) => PredictRepository(AppModule.to.getDependency<CustomDio>())),
+        Dependency(
+            (i) => MenuBarRepository(AppModule.to.getDependency<CustomDio>())),
       ];
 
   @override
   Widget get view => PredictPage();
-  //Widget get view => SignInPage();
 
   static Inject get to => Inject<PredictModule>.of();
 }

@@ -4,21 +4,24 @@ class NsSNVGETModel {
   int pos;
   String ref;
   String alt;
-  Null aaref;
-  Null aaalt;
+  String aaref;
+  String aaalt;
   String result;
   bool alive;
+  String identification;
 
-  NsSNVGETModel(
-      {this.idNsSNV,
-      this.chr,
-      this.pos,
-      this.ref,
-      this.alt,
-      this.aaref,
-      this.aaalt,
-      this.result,
-      this.alive});
+  NsSNVGETModel({
+    this.idNsSNV,
+    this.chr,
+    this.pos,
+    this.ref,
+    this.alt,
+    this.aaref,
+    this.aaalt,
+    this.result,
+    this.alive,
+    this.identification,
+  });
 
   NsSNVGETModel.fromJson(Map<String, dynamic> json) {
     idNsSNV = json['idNsSNV'];
@@ -30,6 +33,7 @@ class NsSNVGETModel {
     aaalt = json['aaalt'];
     result = json['result'];
     alive = json['alive'];
+    identification = json['identification'];
   }
 
   Map<String, dynamic> toJson() {
@@ -43,6 +47,7 @@ class NsSNVGETModel {
     data['aaalt'] = this.aaalt;
     data['result'] = this.result;
     data['alive'] = this.alive;
+    data['identification'] = this.identification;
     return data;
   }
 }
