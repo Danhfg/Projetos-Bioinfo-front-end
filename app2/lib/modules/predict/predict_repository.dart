@@ -1,4 +1,5 @@
 import 'package:app2/shared/custom_dio/curstom_dio.dart';
+import 'package:app2/shared/models/nsSNVGetModel.dart';
 import 'package:app2/shared/models/nsSNVModel.dart';
 import 'package:app2/shared/models/paginationNsSNVGETModel.dart';
 import 'package:dio/dio.dart';
@@ -53,6 +54,30 @@ class PredictRepository {
           order);
       return PaginationNsSNVGETModel.fromJson(response.data);
     } on DioError catch (e) {
+      throw (e.message);
+    }
+  }
+
+  Future<List<NsSNVGETModel>> getResults() async {
+    try {
+      var res;
+      var response = await dio.client
+          .get("/api/predict/results/list")
+          .then((value) => {res = value});
+      return (res.data as List)
+          .map((item) => NsSNVGETModel.fromJson(item))
+          .toList();
+    } on DioError catch (e) {
+      print(e.message);
+      throw (e.message);
+    }
+  }
+
+  Future<void> deletePrediction(int id) async {
+    try {
+      await dio.client.delete("/api/predict/delete/" + id.toString());
+    } on DioError catch (e) {
+      print(e.message);
       throw (e.message);
     }
   }

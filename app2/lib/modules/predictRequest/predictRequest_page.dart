@@ -70,7 +70,6 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
           stream: bloc.responseOut,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              print("ERROR");
               Timer(Duration(seconds: 2), () {
                 bloc.reset();
                 Navigator.pop(context);
@@ -82,7 +81,6 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                 ),
               );
             }
-            print("PASS");
 
             if (snapshot.hasData) {
               if (snapshot.data == 0) {
@@ -237,8 +235,8 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                               end: Alignment.bottomRight,
                               stops: [0.3, 1],
                               colors: [
-                                Colors.lightGreen,
-                                Colors.green,
+                                Colors.lightBlueAccent,
+                                Colors.blueAccent,
                               ],
                             ),
                             borderRadius: BorderRadius.all(

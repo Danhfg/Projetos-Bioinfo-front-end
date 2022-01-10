@@ -9,6 +9,7 @@ class NsSNVGETModel {
   String result;
   bool alive;
   String identification;
+  String resultML;
 
   NsSNVGETModel({
     this.idNsSNV,
@@ -21,6 +22,7 @@ class NsSNVGETModel {
     this.result,
     this.alive,
     this.identification,
+    this.resultML,
   });
 
   NsSNVGETModel.fromJson(Map<String, dynamic> json) {
@@ -34,6 +36,7 @@ class NsSNVGETModel {
     result = json['result'];
     alive = json['alive'];
     identification = json['identification'];
+    resultML = json['resultML'];
   }
 
   Map<String, dynamic> toJson() {
@@ -48,6 +51,7 @@ class NsSNVGETModel {
     data['result'] = this.result;
     data['alive'] = this.alive;
     data['identification'] = this.identification;
+    data['resultML'] = this.resultML;
     return data;
   }
 }

@@ -128,8 +128,8 @@ class _SignInPageState extends State<SignInPage> {
                               end: Alignment.bottomRight,
                               stops: [0.3, 1],
                               colors: [
-                                Color(0xFF689F38),
-                                Color(0XFF388E3C),
+                                Colors.lightBlueAccent,
+                                Colors.lightBlue
                               ],
                             ),
                             borderRadius: BorderRadius.all(
@@ -195,7 +195,7 @@ class _SignInPageState extends State<SignInPage> {
                   child: CircularProgressIndicator(),
                 );
               } else {
-                Timer(Duration(seconds: 1), () {
+                Timer(Duration(milliseconds: 100), () {
                   /*Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -299,8 +299,8 @@ class _SignInPageState extends State<SignInPage> {
                               end: Alignment.bottomRight,
                               stops: [0.3, 1],
                               colors: [
-                                Color(0xFF689F38),
-                                Color(0XFF388E3C),
+                                Colors.lightBlueAccent,
+                                Colors.lightBlue
                               ],
                             ),
                             borderRadius: BorderRadius.all(

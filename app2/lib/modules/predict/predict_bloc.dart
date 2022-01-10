@@ -9,18 +9,20 @@ import 'package:rxdart/rxdart.dart';
 class PredictBloc extends BlocBase {
   final PredictRepository predictRepository;
 
-  PredictBloc(this.predictRepository) {
+  PredictBloc(this.predictRepository);
+  /*PredictBloc(this.predictRepository) {
     offset = 0;
     totalPages = 1;
+    getResults();
     order = "desc";
     sort = "idNsSNV";
-  }
+  }*/
 
   var resultPrediction = BehaviorSubject<List<NsSNVGETModel>>();
   Sink<List<NsSNVGETModel>> get responseIn => resultPrediction.sink;
   Observable<List<NsSNVGETModel>> get responseOut => resultPrediction.stream;
 
-  List<NsSNVGETModel> list = [];
+  List<NsSNVGETModel> list;
 
   int offset;
   int totalPages;
@@ -30,24 +32,36 @@ class PredictBloc extends BlocBase {
   void getResults() async {
     responseIn.add(null);
     try {
-      if (offset < totalPages) {
-        final response = await predictRepository.getResult(
-            this.offset, this.sort, this.order);
-        ++offset;
-        totalPages = response.totalPages;
-        responseIn.add(response.content);
-      }
+      var response = await predictRepository.getResults();
+      responseIn.add(response);
     } catch (e) {
       resultPrediction.addError(e);
     }
   }
+
+  /* getResults() async {
+    // responseIn.add(null);
+    try {
+      if (offset < totalPages) {
+        final response = await predictRepository.getResult(
+            this.offset, this.sort, this.order);
+        ++this.offset;
+        this.list.addAll(response.content);
+        totalPages = response.totalPages;
+        // responseIn.add(response.content);
+      }
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }*/
 
   Future<Null> getResult() async {
     try {
       if (offset < totalPages) {
         final response = await predictRepository.getResult(
             this.offset, this.sort, this.order);
-        // ++offset;
+        ++offset;
         totalPages = response.totalPages;
         this.list.addAll(response.content);
       }
@@ -63,12 +77,10 @@ class PredictBloc extends BlocBase {
 
   int getNdamage(String result) {
     var allPredictors = {};
-    List<String> resultList =
-        result.split("\t")[7].replaceAll("dbNSFP_", "").split(";");
-    print(result);
+    List<String> resultList = result.split("\n");
     for (String item in resultList) {
-      if (item.contains("_pred=")) {
-        List<String> singlePred = item.split("=");
+      if (item.contains("_pred:")) {
+        List<String> singlePred = item.split(":");
         allPredictors[singlePred[0].toString()] = singlePred[1].split(",");
       }
     }
@@ -168,15 +180,175 @@ class PredictBloc extends BlocBase {
       ++nDAMAGE;
     }
 
-    print(result);
-
     return nDAMAGE;
+  }
+
+  int getNdamageML(String resultML) {
+    print(resultML);
+    int result = 0;
+    for (String i in resultML.split('\n')) {
+      if (i != "") result += int.parse(i.split(':')[1]);
+    }
+    return result;
+  }
+
+  String processPrediction(String result) {
+    String exacResut = "0";
+    String common = "0";
+    Map<String, List<String>> allPredictors = {};
+    //String resultPorcess = result.replaceAll("dbNSFP_", "");
+    List<String> resultList = result.split("\n");
+    print(result);
+    for (String item in resultList) {
+      if (item.contains("_pred")) {
+        List<String> singlePred = item.split(":");
+        allPredictors[singlePred[0].toString()] = singlePred[1].split(",");
+      }
+      if (item.contains("ExAC_AF")) {
+        exacResut = item.split(":")[1] == "." ? "0" : item.split(":")[1];
+      }
+      if (item.contains("1000Gp3_AF")) {
+        common = item.split(":")[1] == "." ? "0" : item.split(":")[1];
+      }
+    }
+
+    if (allPredictors.keys.length == 0) {
+      return "I";
+    }
+
+    if ((allPredictors["SIFT_pred"] != null &&
+            allPredictors["SIFT_pred"].contains("T")) &&
+        (allPredictors["Polyphen2_HDIV_pred"] != null &&
+            allPredictors["Polyphen2_HDIV_pred"].contains("B")) &&
+        (allPredictors["PROVEAN_pred"] != null &&
+            allPredictors["PROVEAN_pred"].contains("N"))) {
+      return "N";
+    } else {
+      if (exacResut != null && double.parse(exacResut) < 0.0001) {
+        return "P";
+      } else {
+        int nDAMAGE = 0;
+        if (allPredictors["SIFT_pred"] != null &&
+            allPredictors["SIFT_pred"].contains("D")) {
+          ++nDAMAGE;
+        }
+        if (allPredictors["SIFT4G_pred"] != null &&
+            allPredictors["SIFT4G_pred"].contains("D")) {
+          ++nDAMAGE;
+        }
+        if (allPredictors["Polyphen2_HVAR_pred"] != null &&
+            allPredictors["Polyphen2_HVAR_pred"].contains("D") &&
+            allPredictors["Polyphen2_HVAR_pred"].contains("P")) {
+          ++nDAMAGE;
+        }
+        if (allPredictors["Polyphen2_HDIV_pred"] != null &&
+            allPredictors["Polyphen2_HDIV_pred"].contains("D") &&
+            allPredictors["Polyphen2_HDIV_pred"].contains("P")) {
+          ++nDAMAGE;
+        }
+        if (allPredictors["PROVEAN_pred"] != null &&
+            allPredictors["PROVEAN_pred"].contains("D")) {
+          ++nDAMAGE;
+        }
+        if (allPredictors["LRT_pred"] != null &&
+            allPredictors["LRT_pred"].contains("D")) {
+          ++nDAMAGE;
+        }
+        if (allPredictors["MetaSVM_pred"] != null &&
+            allPredictors["MetaSVM_pred"].contains("D")) {
+          ++nDAMAGE;
+        }
+        if (allPredictors["FATHMM_pred"] != null &&
+            allPredictors["FATHMM_pred"].contains("D")) {
+          ++nDAMAGE;
+        }
+        if (allPredictors["MutationAssessor_pred"] != null &&
+            (allPredictors["MutationAssessor_pred"].contains("H") ||
+                allPredictors["MutationAssessor_pred"].contains("M"))) {
+          ++nDAMAGE;
+        }
+        if (allPredictors["Polyphen2_HVAR_pred"] != null &&
+            allPredictors["Polyphen2_HVAR_pred"].contains("D") &&
+            allPredictors["Polyphen2_HVAR_pred"].contains("P")) {
+          ++nDAMAGE;
+        }
+        if (allPredictors["MutationTaster_pred"] != null &&
+            allPredictors["MutationTaster_pred"].contains("D") &&
+            allPredictors["MutationTaster_pred"].contains("A")) {
+          ++nDAMAGE;
+        }
+        if (allPredictors["MetaLR_pred"] != null &&
+            allPredictors["MetaLR_pred"].contains("D")) {
+          ++nDAMAGE;
+        }
+        if (allPredictors["M-CAP_pred"] != null &&
+            allPredictors["M-CAP_pred"].contains("D")) {
+          ++nDAMAGE;
+        }
+        if (allPredictors["PrimateAI_pred"] != null &&
+            allPredictors["PrimateAI_pred"].contains("D")) {
+          ++nDAMAGE;
+        }
+        if (allPredictors["DEOGEN2_pred"] != null &&
+            allPredictors["DEOGEN2_pred"].contains("D")) {
+          ++nDAMAGE;
+        }
+        if (allPredictors["BayesDel_addAF_pred"] != null &&
+            allPredictors["BayesDel_addAF_pred"].contains("D")) {
+          ++nDAMAGE;
+        }
+        if (allPredictors["BayesDel_noAF_pred"] != null &&
+            allPredictors["BayesDel_noAF_pred"].contains("D")) {
+          ++nDAMAGE;
+        }
+        if (allPredictors["Clinpred_pred"] != null &&
+            allPredictors["Clinpred_pred"].contains("D")) {
+          ++nDAMAGE;
+        }
+        if (allPredictors["LIST-S2_pred"] != null &&
+            allPredictors["LIST-S2_pred"].contains("D")) {
+          ++nDAMAGE;
+        }
+        if (allPredictors["Aloft_pred"] != null &&
+            allPredictors["Aloft_pred"].contains("D")) {
+          ++nDAMAGE;
+        }
+        if (allPredictors["fathmm-MKL_coding_pred"] != null &&
+            allPredictors["fathmm-MKL_coding_pred"].contains("D")) {
+          ++nDAMAGE;
+        }
+        if (allPredictors["fathmm-XF_coding_pred"] != null &&
+            allPredictors["fathmm-XF_coding_pred"].contains("D")) {
+          ++nDAMAGE;
+        }
+        if (nDAMAGE <= 6) {
+          return "N";
+        } else if (common != null && double.parse(common) < 0.0001) {
+          return "P";
+        } else {
+          return "N";
+        }
+      }
+    }
+  }
+
+  Color getColorPred(String res) {
+    if (res == "P")
+      return Colors.red[400];
+    else if (res == "N")
+      return Colors.lightGreen;
+    else
+      return Colors.yellow;
+  }
+
+  void delete(int id) {
+    predictRepository.deletePrediction(id);
   }
 
   //dispose will be called automatically by closing its streams
   @override
   void dispose() {
-    resultPrediction.close();
+    // resultPrediction.close();
     super.dispose();
   }
 }
