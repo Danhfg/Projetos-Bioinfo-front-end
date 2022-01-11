@@ -1,6 +1,8 @@
+import 'package:app2/app/app_module.dart';
 import 'package:app2/modules/predict/components/menuBar_bloc.dart';
 import 'package:app2/modules/predict/predict_module.dart';
 import 'package:app2/modules/signin/signin_page.dart';
+import 'package:app2/shared/auth/auth_bloc.dart';
 import 'package:flutter/material.dart';
 
 class MenuBar extends StatefulWidget {
@@ -10,6 +12,7 @@ class MenuBar extends StatefulWidget {
 
 class _MenuBarState extends State<MenuBar> {
   MenuBarBloc menuBarBloc = PredictModule.to.getBloc<MenuBarBloc>();
+  AuthBloc auth = AppModule.to.getBloc<AuthBloc>();
 
   @override
   void initState() {
@@ -47,10 +50,11 @@ class _MenuBarState extends State<MenuBar> {
             leading: Icon(Icons.exit_to_app),
             title: Text("Sair"),
             onTap: () => {
+              auth.exit = true,
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (BuildContext context) => SignInPage(),
+                    builder: (BuildContext context) => new SignInPage(),
                   ),
                   ModalRoute.withName('/'))
             },

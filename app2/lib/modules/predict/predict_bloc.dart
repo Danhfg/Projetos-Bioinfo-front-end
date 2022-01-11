@@ -82,7 +82,7 @@ class PredictBloc extends BlocBase {
     for (String item in resultList) {
       if (item.contains("_pred:")) {
         List<String> singlePred = item.split(":");
-        allPredictors[singlePred[0].toString()] = singlePred[1].split(",");
+        allPredictors[singlePred[0].toString()] = singlePred[1].split(";");
       }
     }
 
@@ -186,7 +186,6 @@ class PredictBloc extends BlocBase {
 
   int getNdamageML(String resultML) {
     if (resultML == null) return -1;
-    print(resultML);
     int result = 0;
     for (String i in resultML.split('\n')) {
       if (i != "") result += int.parse(i.split(':')[1]);
@@ -203,11 +202,10 @@ class PredictBloc extends BlocBase {
     Map<String, List<String>> allPredictors = {};
     //String resultPorcess = result.replaceAll("dbNSFP_", "");
     List<String> resultList = result.split("\n");
-    print(result);
     for (String item in resultList) {
       if (item.contains("_pred")) {
         List<String> singlePred = item.split(":");
-        allPredictors[singlePred[0].toString()] = singlePred[1].split(",");
+        allPredictors[singlePred[0].toString()] = singlePred[1].split(";");
       }
       if (item.contains("ExAC_AF")) {
         exacResut = item.split(":")[1] == "." ? "0" : item.split(":")[1];

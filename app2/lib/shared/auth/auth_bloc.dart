@@ -63,6 +63,10 @@ class AuthBloc extends BlocBase {
   Observable<int> responseOut;
   Sink<SigninModel> get responseIn => resultLogin.sink;
 
+  void reset() {
+    password = "";
+  }
+
   Stream<int> loginModel(SigninModel signinModel) async* {
     yield 0;
     try {
@@ -73,9 +77,12 @@ class AuthBloc extends BlocBase {
           value.setString("jwt", jwt);
         },
       );
+      reset();
       yield response.statusCode;
     } catch (e) {
       throw e;
     }
   }
+
+  bool exit = false;
 }

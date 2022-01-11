@@ -21,7 +21,7 @@ class PredictResultBloc extends BlocBase {
   String common;
 
   /*final Map<String, Map<String, String>> resultPTbyPred = {
-    "SIFT_pred": {"D": "Patogênica", "T": "Neutra"},
+    "SIFT4G_pred": {"D": "Patogênica", "T": "Neutra"},
     "SIFT4G_pred": {"D": "Patogênica", "T": "Neutra"},
     "Polyphen2_HDIV_pred": {"D": "Patogênica", "B": "Neutra", "P": "Neutra"},
     "Polyphen2_HVAR_pred": {"D": "Patogênica", "B": "Neutra", "P": "Neutra"},
@@ -65,11 +65,10 @@ class PredictResultBloc extends BlocBase {
     allPredictors = {};
     //String resultPorcess = result.replaceAll("dbNSFP_", "");
     List<String> resultList = result.split("\n");
-    print(result);
     for (String item in resultList) {
       if (item.contains("_pred")) {
         List<String> singlePred = item.split(":");
-        allPredictors[singlePred[0].toString()] = singlePred[1].split(",");
+        allPredictors[singlePred[0].toString()] = singlePred[1].split(";");
       }
       if (item.contains("ExAC_AF")) {
         exacResut = item.split(":")[1] == "." ? "0" : item.split(":")[1];

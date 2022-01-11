@@ -188,7 +188,7 @@ class _PredictPageState extends State<PredictPage> {
                                     onPressed: () {
                                       bloc.delete(nsSnv.idNsSNV);
                                       Future.delayed(
-                                        const Duration(milliseconds: 100),
+                                        const Duration(milliseconds: 300),
                                         () {
                                           _handleRefresh();
                                         },

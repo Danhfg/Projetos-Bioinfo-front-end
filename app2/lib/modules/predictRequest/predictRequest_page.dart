@@ -246,7 +246,6 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                           child: SizedBox.expand(
                             child: FlatButton(
                               onPressed: () => {
-                                print("AAAA"),
                                 if (controller.validate())
                                   {
                                     bloc.responseIn.add(

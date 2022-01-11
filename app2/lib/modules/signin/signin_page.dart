@@ -154,6 +154,7 @@ class _SignInPageState extends State<SignInPage> {
                                 ],
                               ),
                               onPressed: () => {
+                                auth.exit = false,
                                 if (_formKey.currentState.validate())
                                   {
                                     auth.responseIn.add(SigninModel(
@@ -195,6 +196,153 @@ class _SignInPageState extends State<SignInPage> {
                   child: CircularProgressIndicator(),
                 );
               } else {
+                if (auth.exit) {
+                  return SingleChildScrollView(
+                    child: Container(
+                      padding: EdgeInsets.only(top: 60, left: 40, right: 40),
+                      color: Colors.white,
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(
+                              width: 128,
+                              height: 128,
+                              child: Image.asset("assets/logo.png"),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            TextFormField(
+                              // autofocus: true,
+                              keyboardType: TextInputType.emailAddress,
+                              decoration: InputDecoration(
+                                labelText: "E-mail",
+                                labelStyle: TextStyle(
+                                  color: Colors.black38,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              style: TextStyle(fontSize: 20),
+                              onChanged: (String email) {
+                                auth.username = email;
+                              },
+                              validator: (String value) {
+                                if (value.isEmpty) {
+                                  return 'Campo não pode ser vazio!';
+                                }
+                                return null;
+                              },
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            TextFormField(
+                              // autofocus: true,
+                              keyboardType: TextInputType.text,
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                labelText: "Senha",
+                                labelStyle: TextStyle(
+                                  color: Colors.black38,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              style: TextStyle(fontSize: 20),
+                              onChanged: (String psswd) {
+                                auth.password = psswd;
+                              },
+                              validator: (String value) {
+                                if (value.isEmpty) {
+                                  return 'Campo não pode ser vazio!';
+                                }
+                                return null;
+                              },
+                            ),
+                            Container(
+                              height: 40,
+                              alignment: Alignment.centerRight,
+                              child: FlatButton(
+                                child: Text(
+                                  "Recuperar Senha",
+                                  textAlign: TextAlign.right,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 40,
+                            ),
+                            Container(
+                              height: 60,
+                              alignment: Alignment.centerLeft,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  stops: [0.3, 1],
+                                  colors: [
+                                    Colors.lightBlueAccent,
+                                    Colors.lightBlue
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(5),
+                                ),
+                              ),
+                              child: SizedBox.expand(
+                                child: FlatButton(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text(
+                                        "Entrar",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ],
+                                  ),
+                                  onPressed: () => {
+                                    auth.exit = false,
+                                    if (_formKey.currentState.validate())
+                                      {
+                                        auth.responseIn.add(SigninModel(
+                                            username: auth.username,
+                                            password: auth.password)),
+                                      }
+                                  },
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              height: 40,
+                              child: FlatButton(
+                                child: Text(
+                                  "Cadastre-se",
+                                  textAlign: TextAlign.center,
+                                ),
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/signup');
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                }
                 Timer(Duration(milliseconds: 100), () {
                   /*Navigator.push(
                     context,
@@ -325,6 +473,7 @@ class _SignInPageState extends State<SignInPage> {
                                 ],
                               ),
                               onPressed: () => {
+                                auth.exit = false,
                                 if (_formKey.currentState.validate())
                                   {
                                     auth.responseIn.add(SigninModel(

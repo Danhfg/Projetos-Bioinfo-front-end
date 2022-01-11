@@ -52,10 +52,183 @@ class _PredictResultPageState extends State<PredictResultPage> {
               ),
             ),
             ListTile(
+              title: Text("Preditor SIFT:"),
+              subtitle: Text(
+                (() {
+                  if (bloc.allPredictors['SIFT_pred'] != null &&
+                      bloc.allPredictors['SIFT_pred'].contains("D")) {
+                    return "Mutação Patogênica";
+                  }
+                  if (bloc.allPredictors['SIFT_pred'] == null) {
+                    return "Sem predição";
+                  }
+
+                  return "Mutação Neutra";
+                })(),
+                style: TextStyle(
+                    color: (bloc.allPredictors['SIFT_pred'] != null &&
+                            bloc.allPredictors['SIFT_pred'].contains("D"))
+                        ? Colors.red
+                        : (bloc.allPredictors['SIFT_pred'] == null)
+                            ? Colors.black
+                            : Colors.lightGreen),
+              ),
+              trailing: Tooltip(
+                message: "sift.bii.a-star.edu.sg/",
+                child: new IconButton(
+                  icon: new Icon(
+                    Icons.help,
+                    //color: Colors.lightGreen,
+                  ),
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text("Preditor SIFT4G:"),
+              subtitle: Text(
+                (() {
+                  if (bloc.allPredictors['SIFT4G_pred'] != null &&
+                      bloc.allPredictors['SIFT4G_pred'].contains("D")) {
+                    return "Mutação Patogênica";
+                  }
+                  if (bloc.allPredictors['SIFT4G_pred'] == null) {
+                    return "Sem predição";
+                  }
+
+                  return "Mutação Neutra";
+                })(),
+                style: TextStyle(
+                    color: (bloc.allPredictors['SIFT4G_pred'] != null &&
+                            bloc.allPredictors['SIFT4G_pred'].contains("D"))
+                        ? Colors.red
+                        : (bloc.allPredictors['SIFT4G_pred'] == null)
+                            ? Colors.black
+                            : Colors.lightGreen),
+              ),
+              trailing: Tooltip(
+                message: "sift.bii.a-star.edu.sg/",
+                child: new IconButton(
+                  icon: new Icon(
+                    Icons.help,
+                    //color: Colors.lightGreen,
+                  ),
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text("Preditor PROVEAN:"),
+              subtitle: Text(
+                (() {
+                  if (bloc.allPredictors['PROVEAN_pred'] != null &&
+                      bloc.allPredictors['PROVEAN_pred'].contains("D")) {
+                    return "Mutação Patogênica";
+                  }
+                  if (bloc.allPredictors['PROVEAN_pred'] == null) {
+                    return "Sem predição";
+                  }
+
+                  return "Mutação Neutra";
+                })(),
+                style: TextStyle(
+                    color: (bloc.allPredictors['PROVEAN_pred'] != null &&
+                            bloc.allPredictors['PROVEAN_pred'].contains("D"))
+                        ? Colors.red
+                        : (bloc.allPredictors['PROVEAN_pred'] == null)
+                            ? Colors.black
+                            : Colors.lightGreen),
+              ),
+              trailing: Tooltip(
+                message: "provean.jcvi.org/index.php",
+                child: new IconButton(
+                  icon: new Icon(
+                    Icons.help,
+                    //color: Colors.lightGreen,
+                  ),
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text("Preditor Polyphen2_HVAR:"),
+              subtitle: Text(
+                (() {
+                  if (bloc.allPredictors['Polyphen2_HVAR_pred'] != null &&
+                      bloc.allPredictors['Polyphen2_HVAR_pred'].contains("D")) {
+                    return "Mutação Patogênica";
+                  }
+                  if (bloc.allPredictors['Polyphen2_HVAR_pred'] == null) {
+                    return "Sem predição";
+                  }
+                  if (bloc.allPredictors['Polyphen2_HVAR_pred'].contains("P")) {
+                    return "Mudação possívelmente Patogênica";
+                  }
+
+                  return "Mutação Neutra";
+                })(),
+                style: TextStyle(
+                    color: (bloc.allPredictors['Polyphen2_HVAR_pred'] != null &&
+                            bloc.allPredictors['Polyphen2_HVAR_pred']
+                                .contains("D"))
+                        ? Colors.red
+                        : (bloc.allPredictors['Polyphen2_HVAR_pred'] == null)
+                            ? Colors.black
+                            : (bloc.allPredictors['Polyphen2_HVAR_pred']
+                                    .contains("P"))
+                                ? Colors.yellow
+                                : Colors.lightGreen),
+              ),
+              trailing: Tooltip(
+                message: "http://genetics.bwh.harvard.edu/pph2/",
+                child: new IconButton(
+                  icon: new Icon(
+                    Icons.help,
+                    //color: Colors.lightGreen,
+                  ),
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text("Preditor Polyphen2_HDIV:  "),
+              subtitle: Text(
+                (() {
+                  if (bloc.allPredictors['Polyphen2_HDIV_pred'] != null &&
+                      bloc.allPredictors['Polyphen2_HDIV_pred'].contains("D")) {
+                    return "Mutação Patogênica";
+                  }
+                  if (bloc.allPredictors['Polyphen2_HDIV_pred'] == null) {
+                    return "Sem predição";
+                  }
+                  if (bloc.allPredictors['Polyphen2_HDIV_pred'].contains("P")) {
+                    return "Mudação possívelmente Patogênica";
+                  }
+
+                  return "Mutação Neutra";
+                })(),
+                style: TextStyle(
+                    color: (bloc.allPredictors['Polyphen2_HDIV_pred'] != null &&
+                            bloc.allPredictors['Polyphen2_HDIV_pred']
+                                .contains("D"))
+                        ? Colors.red
+                        : (bloc.allPredictors['Polyphen2_HDIV_pred'] == null)
+                            ? Colors.black
+                            : (bloc.allPredictors['Polyphen2_HDIV_pred']
+                                    .contains("P"))
+                                ? Colors.yellow
+                                : Colors.lightGreen),
+              ),
+              trailing: Tooltip(
+                message: "http://genetics.bwh.harvard.edu/pph2/",
+                child: new IconButton(
+                  icon: new Icon(
+                    Icons.help,
+                    //color: Colors.lightGreen,
+                  ),
+                ),
+              ),
+            ),
+            ListTile(
               title: Text("Preditor MetaSVM:"),
               subtitle: Text(
                 (() {
-                  print(bloc.allPredictors['MetaSVM_pred'].toString());
                   if (bloc.allPredictors['MetaSVM_pred'] != null &&
                       bloc.allPredictors['MetaSVM_pred'].contains("D")) {
                     return "Mutação Patogênica";
@@ -96,7 +269,6 @@ class _PredictResultPageState extends State<PredictResultPage> {
               title: Text("Preditor FATHMM:"),
               subtitle: Text(
                 (() {
-                  print(bloc.allPredictors['FATHMM_pred'].toString());
                   if (bloc.allPredictors['FATHMM_pred'] != null &&
                       bloc.allPredictors['FATHMM_pred'].contains("D")) {
                     return "Mutação Patogênica";
@@ -129,7 +301,6 @@ class _PredictResultPageState extends State<PredictResultPage> {
               title: Text("Preditor LRT:"),
               subtitle: Text(
                 (() {
-                  print(bloc.allPredictors['LRT_pred'].toString());
                   if (bloc.allPredictors['LRT_pred'] != null &&
                       bloc.allPredictors['LRT_pred'].contains("D")) {
                     return "Mutação Patogênica";
@@ -164,83 +335,9 @@ class _PredictResultPageState extends State<PredictResultPage> {
               ),
             ),
             ListTile(
-              title: Text("Preditor PROVEAN:"),
-              subtitle: Text(
-                (() {
-                  print(bloc.allPredictors['PROVEAN_pred'].toString());
-                  if (bloc.allPredictors['PROVEAN_pred'] != null &&
-                      bloc.allPredictors['PROVEAN_pred'].contains("D")) {
-                    return "Mutação Patogênica";
-                  }
-                  if (bloc.allPredictors['PROVEAN_pred'] == null) {
-                    return "Sem predição";
-                  }
-
-                  return "Mutação Neutra";
-                })(),
-                style: TextStyle(
-                    color: (bloc.allPredictors['PROVEAN_pred'] != null &&
-                            bloc.allPredictors['PROVEAN_pred'].contains("D"))
-                        ? Colors.red
-                        : (bloc.allPredictors['PROVEAN_pred'] == null)
-                            ? Colors.black
-                            : Colors.lightGreen),
-              ),
-              trailing: Tooltip(
-                message: "provean.jcvi.org/index.php",
-                child: new IconButton(
-                  icon: new Icon(
-                    Icons.help,
-                    //color: Colors.lightGreen,
-                  ),
-                ),
-              ),
-            ),
-            ListTile(
-              title: Text("Preditor Polyphen2_HDIV:  "),
-              subtitle: Text(
-                (() {
-                  print(bloc.allPredictors['Polyphen2_HDIV_pred'].toString());
-                  if (bloc.allPredictors['Polyphen2_HDIV_pred'] != null &&
-                      bloc.allPredictors['Polyphen2_HDIV_pred'].contains("D")) {
-                    return "Mutação Patogênica";
-                  }
-                  if (bloc.allPredictors['Polyphen2_HDIV_pred'] == null) {
-                    return "Sem predição";
-                  }
-                  if (bloc.allPredictors['Polyphen2_HDIV_pred'].contains("P")) {
-                    return "Mudação possívelmente Patogênica";
-                  }
-
-                  return "Mutação Neutra";
-                })(),
-                style: TextStyle(
-                    color: (bloc.allPredictors['Polyphen2_HDIV_pred'] != null &&
-                            bloc.allPredictors['Polyphen2_HDIV_pred']
-                                .contains("D"))
-                        ? Colors.red
-                        : (bloc.allPredictors['Polyphen2_HDIV_pred'] == null)
-                            ? Colors.black
-                            : (bloc.allPredictors['Polyphen2_HDIV_pred']
-                                    .contains("P"))
-                                ? Colors.yellow
-                                : Colors.lightGreen),
-              ),
-              trailing: Tooltip(
-                message: "http://genetics.bwh.harvard.edu/pph2/",
-                child: new IconButton(
-                  icon: new Icon(
-                    Icons.help,
-                    //color: Colors.lightGreen,
-                  ),
-                ),
-              ),
-            ),
-            ListTile(
               title: Text("Preditor MutationTaster:"),
               subtitle: Text(
                 (() {
-                  print(bloc.allPredictors['MutationTaster_pred'].toString());
                   if (bloc.allPredictors['MutationTaster_pred'] != null &&
                       bloc.allPredictors['MutationTaster_pred'].contains("A")) {
                     return "Mutação Patogênica";
@@ -274,7 +371,6 @@ class _PredictResultPageState extends State<PredictResultPage> {
               title: Text("Preditor MutationAssessor:"),
               subtitle: Text(
                 (() {
-                  print(bloc.allPredictors['MutationAssessor_pred'].toString());
                   if (bloc.allPredictors['MutationAssessor_pred'] != null &&
                       bloc.allPredictors['MutationAssessor_pred']
                           .contains("H")) {
@@ -307,76 +403,264 @@ class _PredictResultPageState extends State<PredictResultPage> {
               ),
             ),
             ListTile(
-              title: Text("Preditor Polyphen2_HVAR:"),
+              title: Text("Fathmm-XF coding:"),
               subtitle: Text(
                 (() {
-                  print(bloc.allPredictors['Polyphen2_HVAR_pred'].toString());
-                  if (bloc.allPredictors['Polyphen2_HVAR_pred'] != null &&
-                      bloc.allPredictors['Polyphen2_HVAR_pred'].contains("D")) {
+                  if (bloc.allPredictors['fathmm-XF_coding_pred'] != null &&
+                      bloc.allPredictors['fathmm-XF_coding_pred']
+                          .contains("D")) {
                     return "Mutação Patogênica";
                   }
-                  if (bloc.allPredictors['Polyphen2_HVAR_pred'] == null) {
+                  if (bloc.allPredictors['fathmm-XF_coding_pred'] == null) {
                     return "Sem predição";
-                  }
-                  if (bloc.allPredictors['Polyphen2_HVAR_pred'].contains("P")) {
-                    return "Mudação possívelmente Patogênica";
                   }
 
                   return "Mutação Neutra";
                 })(),
                 style: TextStyle(
-                    color: (bloc.allPredictors['Polyphen2_HVAR_pred'] != null &&
-                            bloc.allPredictors['Polyphen2_HVAR_pred']
+                    color: (bloc.allPredictors['fathmm-XF_coding_pred'] !=
+                                null &&
+                            bloc.allPredictors['fathmm-XF_coding_pred']
                                 .contains("D"))
                         ? Colors.red
-                        : (bloc.allPredictors['Polyphen2_HVAR_pred'] == null)
-                            ? Colors.black
-                            : (bloc.allPredictors['Polyphen2_HVAR_pred']
-                                    .contains("P"))
-                                ? Colors.yellow
-                                : Colors.lightGreen),
-              ),
-              trailing: Tooltip(
-                message: "http://genetics.bwh.harvard.edu/pph2/",
-                child: new IconButton(
-                  icon: new Icon(
-                    Icons.help,
-                    //color: Colors.lightGreen,
-                  ),
-                ),
-              ),
-            ),
-            ListTile(
-              title: Text("Preditor SIFT:"),
-              subtitle: Text(
-                (() {
-                  print(bloc.allPredictors['SIFT_pred'].toString());
-                  if (bloc.allPredictors['SIFT_pred'] != null &&
-                      bloc.allPredictors['SIFT_pred'].contains("D")) {
-                    return "Mutação Patogênica";
-                  }
-                  if (bloc.allPredictors['SIFT_pred'] == null) {
-                    return "Sem predição";
-                  }
-
-                  return "Mutação Neutra";
-                })(),
-                style: TextStyle(
-                    color: (bloc.allPredictors['SIFT_pred'] != null &&
-                            bloc.allPredictors['SIFT_pred'].contains("D"))
-                        ? Colors.red
-                        : (bloc.allPredictors['SIFT_pred'] == null)
+                        : (bloc.allPredictors['fathmm-XF_coding_pred'] == null)
                             ? Colors.black
                             : Colors.lightGreen),
               ),
-              trailing: Tooltip(
-                message: "sift.bii.a-star.edu.sg/",
-                child: new IconButton(
-                  icon: new Icon(
-                    Icons.help,
-                    //color: Colors.lightGreen,
-                  ),
-                ),
+            ),
+            ListTile(
+              title: Text("Fathmm-MKL coding:"),
+              subtitle: Text(
+                (() {
+                  if (bloc.allPredictors['fathmm-MKL_coding_pred'] != null &&
+                      bloc.allPredictors['fathmm-MKL_coding_pred']
+                          .contains("D")) {
+                    return "Mutação Patogênica";
+                  }
+                  if (bloc.allPredictors['fathmm-MKL_coding_pred'] == null) {
+                    return "Sem predição";
+                  }
+
+                  return "Mutação Neutra";
+                })(),
+                style: TextStyle(
+                    color: (bloc.allPredictors['fathmm-MKL_coding_pred'] !=
+                                null &&
+                            bloc.allPredictors['fathmm-MKL_coding_pred']
+                                .contains("D"))
+                        ? Colors.red
+                        : (bloc.allPredictors['fathmm-MKL_coding_pred'] == null)
+                            ? Colors.black
+                            : Colors.lightGreen),
+              ),
+            ),
+            ListTile(
+              title: Text("Aloft:"),
+              subtitle: Text(
+                (() {
+                  if (bloc.allPredictors['Aloft_pred'] != null &&
+                      bloc.allPredictors['Aloft_pred'].contains("D")) {
+                    return "Mutação Patogênica";
+                  }
+                  if (bloc.allPredictors['Aloft_pred'] == null) {
+                    return "Sem predição";
+                  }
+
+                  return "Mutação Neutra";
+                })(),
+                style: TextStyle(
+                    color: (bloc.allPredictors['Aloft_pred'] != null &&
+                            bloc.allPredictors['Aloft_pred'].contains("D"))
+                        ? Colors.red
+                        : (bloc.allPredictors['Aloft_pred'] == null)
+                            ? Colors.black
+                            : Colors.lightGreen),
+              ),
+            ),
+            ListTile(
+              title: Text("LIST-S2:"),
+              subtitle: Text(
+                (() {
+                  if (bloc.allPredictors['LIST-S2_pred'] != null &&
+                      bloc.allPredictors['LIST-S2_pred'].contains("D")) {
+                    return "Mutação Patogênica";
+                  }
+                  if (bloc.allPredictors['LIST-S2_pred'] == null) {
+                    return "Sem predição";
+                  }
+
+                  return "Mutação Neutra";
+                })(),
+                style: TextStyle(
+                    color: (bloc.allPredictors['LIST-S2_pred'] != null &&
+                            bloc.allPredictors['LIST-S2_pred'].contains("D"))
+                        ? Colors.red
+                        : (bloc.allPredictors['LIST-S2_pred'] == null)
+                            ? Colors.black
+                            : Colors.lightGreen),
+              ),
+            ),
+            ListTile(
+              title: Text("Clinpred:"),
+              subtitle: Text(
+                (() {
+                  if (bloc.allPredictors['Clinpred_pred'] != null &&
+                      bloc.allPredictors['Clinpred_pred'].contains("D")) {
+                    return "Mutação Patogênica";
+                  }
+                  if (bloc.allPredictors['Clinpred_pred'] == null) {
+                    return "Sem predição";
+                  }
+
+                  return "Mutação Neutra";
+                })(),
+                style: TextStyle(
+                    color: (bloc.allPredictors['Clinpred_pred'] != null &&
+                            bloc.allPredictors['Clinpred_pred'].contains("D"))
+                        ? Colors.red
+                        : (bloc.allPredictors['Clinpred_pred'] == null)
+                            ? Colors.black
+                            : Colors.lightGreen),
+              ),
+            ),
+            ListTile(
+              title: Text("BayesDel noAF:"),
+              subtitle: Text(
+                (() {
+                  if (bloc.allPredictors['BayesDel_noAF_pred'] != null &&
+                      bloc.allPredictors['BayesDel_noAF_pred'].contains("D")) {
+                    return "Mutação Patogênica";
+                  }
+                  if (bloc.allPredictors['BayesDel_noAF_pred'] == null) {
+                    return "Sem predição";
+                  }
+
+                  return "Mutação Neutra";
+                })(),
+                style: TextStyle(
+                    color: (bloc.allPredictors['BayesDel_noAF_pred'] != null &&
+                            bloc.allPredictors['BayesDel_noAF_pred']
+                                .contains("D"))
+                        ? Colors.red
+                        : (bloc.allPredictors['BayesDel_noAF_pred'] == null)
+                            ? Colors.black
+                            : Colors.lightGreen),
+              ),
+            ),
+            ListTile(
+              title: Text("BayesDel addAF:"),
+              subtitle: Text(
+                (() {
+                  if (bloc.allPredictors['BayesDel_addAF_pred'] != null &&
+                      bloc.allPredictors['BayesDel_addAF_pred'].contains("D")) {
+                    return "Mutação Patogênica";
+                  }
+                  if (bloc.allPredictors['BayesDel_addAF_pred'] == null) {
+                    return "Sem predição";
+                  }
+
+                  return "Mutação Neutra";
+                })(),
+                style: TextStyle(
+                    color: (bloc.allPredictors['BayesDel_addAF_pred'] != null &&
+                            bloc.allPredictors['BayesDel_addAF_pred']
+                                .contains("D"))
+                        ? Colors.red
+                        : (bloc.allPredictors['BayesDel_addAF_pred'] == null)
+                            ? Colors.black
+                            : Colors.lightGreen),
+              ),
+            ),
+            ListTile(
+              title: Text("DEOGEN2:"),
+              subtitle: Text(
+                (() {
+                  if (bloc.allPredictors['DEOGEN2_pred'] != null &&
+                      bloc.allPredictors['DEOGEN2_pred'].contains("D")) {
+                    return "Mutação Patogênica";
+                  }
+                  if (bloc.allPredictors['DEOGEN2_pred'] == null) {
+                    return "Sem predição";
+                  }
+
+                  return "Mutação Neutra";
+                })(),
+                style: TextStyle(
+                    color: (bloc.allPredictors['DEOGEN2_pred'] != null &&
+                            bloc.allPredictors['DEOGEN2_pred'].contains("D"))
+                        ? Colors.red
+                        : (bloc.allPredictors['DEOGEN2_pred'] == null)
+                            ? Colors.black
+                            : Colors.lightGreen),
+              ),
+            ),
+            ListTile(
+              title: Text("PrimateAI:"),
+              subtitle: Text(
+                (() {
+                  if (bloc.allPredictors['PrimateAI_pred'] != null &&
+                      bloc.allPredictors['PrimateAI_pred'].contains("D")) {
+                    return "Mutação Patogênica";
+                  }
+                  if (bloc.allPredictors['PrimateAI_pred'] == null) {
+                    return "Sem predição";
+                  }
+
+                  return "Mutação Neutra";
+                })(),
+                style: TextStyle(
+                    color: (bloc.allPredictors['PrimateAI_pred'] != null &&
+                            bloc.allPredictors['PrimateAI_pred'].contains("D"))
+                        ? Colors.red
+                        : (bloc.allPredictors['PrimateAI_pred'] == null)
+                            ? Colors.black
+                            : Colors.lightGreen),
+              ),
+            ),
+            ListTile(
+              title: Text("M-CAP:"),
+              subtitle: Text(
+                (() {
+                  if (bloc.allPredictors['M-CAP_pred'] != null &&
+                      bloc.allPredictors['M-CAP_pred'].contains("D")) {
+                    return "Mutação Patogênica";
+                  }
+                  if (bloc.allPredictors['M-CAP_pred'] == null) {
+                    return "Sem predição";
+                  }
+
+                  return "Mutação Neutra";
+                })(),
+                style: TextStyle(
+                    color: (bloc.allPredictors['M-CAP_pred'] != null &&
+                            bloc.allPredictors['M-CAP_pred'].contains("D"))
+                        ? Colors.red
+                        : (bloc.allPredictors['M-CAP_pred'] == null)
+                            ? Colors.black
+                            : Colors.lightGreen),
+              ),
+            ),
+            ListTile(
+              title: Text("MetaLR:"),
+              subtitle: Text(
+                (() {
+                  if (bloc.allPredictors['MetaLR_pred'] != null &&
+                      bloc.allPredictors['MetaLR_pred'].contains("D")) {
+                    return "Mutação Patogênica";
+                  }
+                  if (bloc.allPredictors['MetaLR_pred'] == null) {
+                    return "Sem predição";
+                  }
+
+                  return "Mutação Neutra";
+                })(),
+                style: TextStyle(
+                    color: (bloc.allPredictors['MetaLR_pred'] != null &&
+                            bloc.allPredictors['MetaLR_pred'].contains("D"))
+                        ? Colors.red
+                        : (bloc.allPredictors['MetaLR_pred'] == null)
+                            ? Colors.black
+                            : Colors.lightGreen),
               ),
             ),
 
@@ -461,7 +745,7 @@ class _PredictResultPageState extends State<PredictResultPage> {
                       height: 5,
                     ),
                     Text(
-                      "SIFT: " + bloc.allPredictors['SIFT_pred'].toString(),
+                      "SIFT: " + bloc.allPredictors['SIFT4G_pred'].toString(),
                     ),
                     SizedBox(
                       height: 5,
