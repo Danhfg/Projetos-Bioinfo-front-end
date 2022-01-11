@@ -145,7 +145,11 @@ class _PredictPageState extends State<PredictPage> {
               if (snapshot.hasError) {
                 return Center(
                   child: Text(
-                    snapshot.error.toString(),
+                    'Nenhuma predição solicitada!',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline5
+                        .copyWith(fontWeight: FontWeight.bold),
                   ),
                 );
               }

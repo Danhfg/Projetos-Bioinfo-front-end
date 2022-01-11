@@ -72,6 +72,7 @@ class PredictBloc extends BlocBase {
 
   Color getColor(int ndamage) {
     if (ndamage > 6) return Colors.red[400];
+    if (ndamage == -1) return Colors.yellow;
     return Colors.lightGreen;
   }
 
@@ -184,6 +185,7 @@ class PredictBloc extends BlocBase {
   }
 
   int getNdamageML(String resultML) {
+    if (resultML == null) return -1;
     print(resultML);
     int result = 0;
     for (String i in resultML.split('\n')) {
@@ -193,6 +195,9 @@ class PredictBloc extends BlocBase {
   }
 
   String processPrediction(String result) {
+    if (result == null) {
+      return "I";
+    }
     String exacResut = "0";
     String common = "0";
     Map<String, List<String>> allPredictors = {};

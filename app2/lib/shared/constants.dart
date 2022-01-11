@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const BASE_URL = "http://192.168.1.11:8443";
+const BASE_URL = "https://bioinfo.imd.ufrn.br/daniel_backend";
 
 const kPrimaryColor = Colors.lightBlue;
 const kTextColor = Color(0xFF3C4046);
