@@ -7,6 +7,8 @@ import 'package:app2/modules/predict/predict_module.dart';
 import 'package:app2/modules/predictRequest/predictRequest_page.dart';
 import 'package:app2/modules/predictResult/predictResult_bloc.dart';
 import 'package:app2/modules/predictResult/predictResult_page.dart';
+import 'package:app2/modules/predictResultML/predictResultML_bloc.dart';
+import 'package:app2/modules/predictResultML/predictResultML_page.dart';
 import 'package:app2/shared/constants.dart';
 import 'package:app2/shared/models/nsSNVGetModel.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -26,6 +28,7 @@ class PredictPage extends StatefulWidget {
 class _PredictPageState extends State<PredictPage> {
   var bloc = PredictModule.to.getBloc<PredictBloc>();
   var blocRequest = PredictModule.to.getBloc<PredictResultBloc>();
+  var blocRequestML = PredictModule.to.getBloc<PredictResultMLBloc>();
   var menuBarBloc = PredictModule.to.getBloc<MenuBarBloc>();
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -260,7 +263,7 @@ class _PredictPageState extends State<PredictPage> {
                                                 ],
                                               ),
                                               child: Text(
-                                                "MUTAÇÃO",
+                                                "RESULTADO",
                                               ),
                                             ),
                                             Container(
@@ -338,61 +341,76 @@ class _PredictPageState extends State<PredictPage> {
                                         ],
                                       ),
                                     ),
-                                    Container(
-                                      // padding:
-                                      //     EdgeInsets.all(kDefaultPadding / 2),
-                                      margin: EdgeInsets.only(
-                                        left: kDefaultPadding,
-                                        // top: kDefaultPadding / 2,
-                                        // bottom: kDefaultPadding * 2.5,
-                                      ),
-                                      width: size.width * 0.3,
-                                      child: Column(
-                                        children: [
-                                          Center(
-                                            child: Text(
-                                              bloc
-                                                  .getNdamageML(nsSnv.resultML)
-                                                  .toString(),
-                                              style: TextStyle(
-                                                fontSize: 70,
-                                                color: bloc.getColor(
-                                                  bloc.getNdamageML(
-                                                    nsSnv.resultML,
+                                    GestureDetector(
+                                      onTap: () {
+                                        blocRequestML.processPrediction(
+                                          nsSnv.resultML,
+                                        );
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                PredictResultPageML(),
+                                          ),
+                                        );
+                                      },
+                                      child: Container(
+                                        // padding:
+                                        //     EdgeInsets.all(kDefaultPadding / 2),
+                                        margin: EdgeInsets.only(
+                                          left: kDefaultPadding,
+                                          // top: kDefaultPadding / 2,
+                                          // bottom: kDefaultPadding * 2.5,
+                                        ),
+                                        width: size.width * 0.3,
+                                        child: Column(
+                                          children: [
+                                            Center(
+                                              child: Text(
+                                                bloc
+                                                    .getNdamageML(
+                                                        nsSnv.resultML)
+                                                    .toString(),
+                                                style: TextStyle(
+                                                  fontSize: 70,
+                                                  color: bloc.getColor(
+                                                    bloc.getNdamageML(
+                                                      nsSnv.resultML,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  blurRadius: 50,
-                                                  color: kPrimaryColor
-                                                      .withOpacity(0.2),
-                                                ),
-                                              ],
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    blurRadius: 50,
+                                                    color: kPrimaryColor
+                                                        .withOpacity(0.2),
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Text(
+                                                "NDAMAGE",
+                                              ),
                                             ),
-                                            child: Text(
-                                              "NDAMAGE",
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    blurRadius: 50,
+                                                    color: kPrimaryColor
+                                                        .withOpacity(0.2),
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Text(
+                                                "IA".toUpperCase(),
+                                              ),
                                             ),
-                                          ),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  blurRadius: 50,
-                                                  color: kPrimaryColor
-                                                      .withOpacity(0.2),
-                                                ),
-                                              ],
-                                            ),
-                                            child: Text(
-                                              "IA".toUpperCase(),
-                                            ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ],

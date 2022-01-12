@@ -14,7 +14,7 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Slidy',
       theme: ThemeData(
-        primarySwatch: kPrimaryColor,
+        primarySwatch: Colors.lightBlue,
       ),
       debugShowCheckedModeBanner: false,
       home: SigninModule(),

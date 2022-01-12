@@ -1,6 +1,7 @@
 import 'package:app2/modules/predict/components/menuBar_bloc.dart';
 import 'package:app2/modules/predict/components/menuBar_repository.dart';
 import 'package:app2/modules/predictResult/predictResult_bloc.dart';
+import 'package:app2/modules/predictResultML/predictResultML_bloc.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
@@ -27,6 +28,9 @@ class PredictModule extends ModuleWidget {
         ),
         Bloc(
           (i) => new PredictResultBloc(),
+        ),
+        Bloc(
+          (i) => new PredictResultMLBloc(),
         ),
         Bloc(
           (i) => new MenuBarBloc(

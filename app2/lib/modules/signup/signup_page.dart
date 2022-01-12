@@ -244,6 +244,31 @@ class _SignupPageState extends State<SignupPage> {
                             return null;
                           },
                         ),
+                        TextFormField(
+                          // autofocus: true,
+                          keyboardType: TextInputType.name,
+                          decoration: InputDecoration(
+                            labelText: "Nome",
+                            labelStyle: TextStyle(
+                              color: Colors.black38,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 20,
+                            ),
+                          ),
+                          style: TextStyle(fontSize: 20),
+                          onChanged: (String name) {
+                            auth.name = name;
+                          },
+                          validator: (String value) {
+                            if (value.isEmpty) {
+                              return 'Campo não pode ser vazio!';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
                         SizedBox(
                           height: 10,
                         ),
