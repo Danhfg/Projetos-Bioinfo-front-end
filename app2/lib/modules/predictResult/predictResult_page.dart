@@ -403,7 +403,7 @@ class _PredictResultPageState extends State<PredictResultPage> {
               ),
             ),
             ListTile(
-              title: Text("Fathmm-XF coding:"),
+              title: Text("Preditor Fathmm-XF coding:"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['fathmm-XF_coding_pred'] != null &&
@@ -429,7 +429,7 @@ class _PredictResultPageState extends State<PredictResultPage> {
               ),
             ),
             ListTile(
-              title: Text("Fathmm-MKL coding:"),
+              title: Text("Preditor Fathmm-MKL coding:"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['fathmm-MKL_coding_pred'] != null &&
@@ -455,7 +455,7 @@ class _PredictResultPageState extends State<PredictResultPage> {
               ),
             ),
             ListTile(
-              title: Text("Aloft:"),
+              title: Text("Preditor Aloft:"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['Aloft_pred'] != null &&
@@ -478,7 +478,7 @@ class _PredictResultPageState extends State<PredictResultPage> {
               ),
             ),
             ListTile(
-              title: Text("LIST-S2:"),
+              title: Text("Preditor LIST-S2:"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['LIST-S2_pred'] != null &&
@@ -501,7 +501,7 @@ class _PredictResultPageState extends State<PredictResultPage> {
               ),
             ),
             ListTile(
-              title: Text("Clinpred:"),
+              title: Text("Preditor Clinpred:"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['Clinpred_pred'] != null &&
@@ -524,7 +524,7 @@ class _PredictResultPageState extends State<PredictResultPage> {
               ),
             ),
             ListTile(
-              title: Text("BayesDel noAF:"),
+              title: Text("Preditor BayesDel noAF:"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['BayesDel_noAF_pred'] != null &&
@@ -548,7 +548,7 @@ class _PredictResultPageState extends State<PredictResultPage> {
               ),
             ),
             ListTile(
-              title: Text("BayesDel addAF:"),
+              title: Text("Preditor BayesDel addAF:"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['BayesDel_addAF_pred'] != null &&
@@ -572,7 +572,7 @@ class _PredictResultPageState extends State<PredictResultPage> {
               ),
             ),
             ListTile(
-              title: Text("DEOGEN2:"),
+              title: Text("Preditor DEOGEN2:"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['DEOGEN2_pred'] != null &&
@@ -595,7 +595,7 @@ class _PredictResultPageState extends State<PredictResultPage> {
               ),
             ),
             ListTile(
-              title: Text("PrimateAI:"),
+              title: Text("Preditor PrimateAI:"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['PrimateAI_pred'] != null &&
@@ -618,7 +618,7 @@ class _PredictResultPageState extends State<PredictResultPage> {
               ),
             ),
             ListTile(
-              title: Text("M-CAP:"),
+              title: Text("Preditor M-CAP:"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['M-CAP_pred'] != null &&
@@ -641,7 +641,7 @@ class _PredictResultPageState extends State<PredictResultPage> {
               ),
             ),
             ListTile(
-              title: Text("MetaLR:"),
+              title: Text("Preditor MetaLR:"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['MetaLR_pred'] != null &&
