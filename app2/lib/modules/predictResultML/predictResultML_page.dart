@@ -55,7 +55,7 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
               ),
             ),
             ListTile(
-              title: Text("AdaBoost Classifier:"),
+              title: Text("AdaBoost:"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['AdaBoostClassifier'].contains("1")) {
@@ -71,7 +71,7 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
               ),
             ),
             ListTile(
-              title: Text("Bagging Classifier:"),
+              title: Text("Bagging:"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['BaggingClassifier'].contains("1")) {
@@ -87,7 +87,7 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
               ),
             ),
             ListTile(
-              title: Text("Extra Trees Classifier:"),
+              title: Text("Extra Trees:"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['ExtraTreesClassifier']
@@ -104,7 +104,7 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
               ),
             ),
             ListTile(
-              title: Text("Random Forest Classifier:"),
+              title: Text("Random Forest:"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['RandomForestClassifier']
@@ -137,7 +137,7 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
               ),
             ),
             ListTile(
-              title: Text("Bernoulli NB:"),
+              title: Text("Bernoulli Naive Bayes:"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['BernoulliNB'].contains("1")) {
@@ -152,7 +152,7 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
               ),
             ),
             ListTile(
-              title: Text("GaussianNB:"),
+              title: Text("Gaussian Naive Bayes:"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['GaussianNB'].contains("1")) {
@@ -167,7 +167,7 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
               ),
             ),
             ListTile(
-              title: Text("KNeighbors Classifier:"),
+              title: Text("K Nearest Neighbors:"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['KNeighborsClassifier']
@@ -184,7 +184,7 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
               ),
             ),
             ListTile(
-              title: Text("MLP Classifier:"),
+              title: Text("Multilayer Perceptron:"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['MLPClassifier'].contains("1")) {
@@ -199,7 +199,7 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
               ),
             ),
             ListTile(
-              title: Text("LinearSVC:"),
+              title: Text("Support Vector Machines (Linear kernel):"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['LinearSVC'].contains("1")) {
@@ -214,7 +214,7 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
               ),
             ),
             ListTile(
-              title: Text("NuSVC:"),
+              title: Text("Nu-Support Vector Machines:"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['NuSVC'].contains("1")) {
@@ -229,7 +229,7 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
               ),
             ),
             ListTile(
-              title: Text("SVC:"),
+              title: Text("Support Vector Machines (RBF kernel):"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['SVC'].contains("1")) {
@@ -244,7 +244,7 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
               ),
             ),
             ListTile(
-              title: Text("Decision Tree Classifier:"),
+              title: Text("SKLearn Decision Tree:"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['DecisionTreeClassifier']
@@ -261,7 +261,7 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
               ),
             ),
             ListTile(
-              title: Text("Extra Tree Classifier:"),
+              title: Text("Extra Tree:"),
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['ExtraTreeClassifier'].contains("1")) {

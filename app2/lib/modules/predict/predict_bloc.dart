@@ -219,12 +219,10 @@ class PredictBloc extends BlocBase {
       return "I";
     }
 
-    if ((allPredictors["SIFT_pred"] != null &&
-            allPredictors["SIFT_pred"].contains("T")) &&
-        (allPredictors["Polyphen2_HDIV_pred"] != null &&
-            allPredictors["Polyphen2_HDIV_pred"].contains("B")) &&
-        (allPredictors["PROVEAN_pred"] != null &&
-            allPredictors["PROVEAN_pred"].contains("N"))) {
+    if (!(allPredictors['SIFT_pred'].contains("D")) &&
+        !(allPredictors['Polyphen2_HDIV_pred'].contains("D") ||
+            allPredictors["Polyphen2_HDIV_pred"].contains("P")) &&
+        !(allPredictors['PROVEAN_pred'].contains("D"))) {
       return "N";
     } else {
       if (exacResut != null && double.parse(exacResut) < 0.0001) {

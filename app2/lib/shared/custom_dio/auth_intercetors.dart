@@ -11,13 +11,11 @@ class AuthIntercetors extends InterceptorsWrapper {
     CustomDio dio = AppModule.to.getDependency<CustomDio>();
     await auth.getToken();
     var jwt = auth.jwt;
-    print(jwt);
 
     if (jwt == null) {
       dio.client.lock();
 
       /*jwt = */ await auth.login();
-      print(auth.jwt);
       var jwt = auth.jwt;
       options.headers.addAll({"Authorization": jwt});
 
