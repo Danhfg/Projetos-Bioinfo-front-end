@@ -6,15 +6,13 @@ import 'package:flutter/material.dart';
 
 import 'package:app2/modules/predict/predict_module.dart';
 
-import 'app_module.dart';
-
 class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Slidy',
+      title: 'Dtree Pred',
       theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
+        primarySwatch: kPrimaryColor,
       ),
       debugShowCheckedModeBanner: false,
       home: SigninModule(),

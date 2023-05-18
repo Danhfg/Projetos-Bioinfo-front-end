@@ -342,6 +342,8 @@ class PredictBloc extends BlocBase {
       return Colors.yellow;
   }
 
+  String posRestricao = "";
+
   void delete(int id) {
     predictRepository.deletePrediction(id);
   }

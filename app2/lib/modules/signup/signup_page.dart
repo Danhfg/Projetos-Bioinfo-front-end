@@ -87,9 +87,6 @@ class _SignupPageState extends State<SignupPage> {
                             return null;
                           },
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
                         TextFormField(
                           // autofocus: true,
                           keyboardType: TextInputType.text,
@@ -125,8 +122,8 @@ class _SignupPageState extends State<SignupPage> {
                               end: Alignment.bottomRight,
                               stops: [0.3, 1],
                               colors: [
-                                Color(0xFF689F38),
-                                Color(0XFF388E3C),
+                                Colors.lightBlueAccent,
+                                Colors.lightBlue
                               ],
                             ),
                             borderRadius: BorderRadius.all(
@@ -266,12 +263,6 @@ class _SignupPageState extends State<SignupPage> {
                             return null;
                           },
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
                         TextFormField(
                           // autofocus: true,
                           keyboardType: TextInputType.text,
@@ -307,8 +298,8 @@ class _SignupPageState extends State<SignupPage> {
                               end: Alignment.bottomRight,
                               stops: [0.3, 1],
                               colors: [
-                                Color(0xFF689F38),
-                                Color(0XFF388E3C),
+                                Colors.lightBlueAccent,
+                                Colors.lightBlue
                               ],
                             ),
                             borderRadius: BorderRadius.all(

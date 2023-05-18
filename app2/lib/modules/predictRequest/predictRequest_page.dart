@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'package:app2/modules/predict/predict_module.dart';
 import 'package:app2/modules/predictRequest/predictRequest_bloc.dart';
+import 'package:flutter/services.dart';
 
 class PredictRequestPage extends StatefulWidget {
   final Function onSuccess;
@@ -117,7 +118,7 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                           keyboardType: TextInputType.text,
                           textCapitalization: TextCapitalization.sentences,
                           maxLength: 2,
-                          maxLengthEnforced: true,
+                          maxLengthEnforcement: MaxLengthEnforcement.enforced,
                           onSaved: (String chrInput) {
                             bloc.chr = chrInput;
                           },
@@ -139,9 +140,6 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                             return null;
                           },
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
                         TextFormField(
                           autofocus: true,
                           keyboardType: TextInputType.number,
@@ -162,9 +160,6 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                             }
                             return null;
                           },
-                        ),
-                        SizedBox(
-                          height: 10,
                         ),
                         TextFormField(
                           autofocus: true,
@@ -192,9 +187,6 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                             }
                             return null;
                           },
-                        ),
-                        SizedBox(
-                          height: 10,
                         ),
                         TextFormField(
                           autofocus: true,

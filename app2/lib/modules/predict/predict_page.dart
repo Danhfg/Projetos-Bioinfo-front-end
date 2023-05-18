@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:app2/modules/predict/components/menuBar.dart';
 import 'package:app2/modules/predict/components/menuBar_bloc.dart';
 import 'package:app2/modules/predict/predict_bloc.dart';
@@ -11,7 +9,6 @@ import 'package:app2/modules/predictResultML/predictResultML_bloc.dart';
 import 'package:app2/modules/predictResultML/predictResultML_page.dart';
 import 'package:app2/shared/constants.dart';
 import 'package:app2/shared/models/nsSNVGetModel.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter/material.dart';
 
 class PredictPage extends StatefulWidget {
@@ -47,7 +44,6 @@ class _PredictPageState extends State<PredictPage> {
   @override
   void initState() {
     bloc.getResults();
-    //print(bloc.list.first.result);
     menuBarBloc.getUser();
 
     super.initState();
@@ -123,13 +119,21 @@ class _PredictPageState extends State<PredictPage> {
                     ),
                     child: TextField(
                       decoration: InputDecoration(
-                        hintText: "Procurar",
+                        hintText: "Procurar por posição",
                         hintStyle: TextStyle(
                           color: kPrimaryColor.withOpacity(0.40),
                         ),
                         enabledBorder: InputBorder.none,
                         focusedBorder: InputBorder.none,
                       ),
+                      onSubmitted: (value) {
+                        bloc.posRestricao = (value);
+                        _handleRefresh();
+                      },
+                      onChanged: (value) {
+                        bloc.posRestricao = (value);
+                        _handleRefresh();
+                      },
                     ),
                   ),
                 )
@@ -166,195 +170,130 @@ class _PredictPageState extends State<PredictPage> {
                       itemBuilder: (context, index) {
                         var nsSnv = snapshot.data[index];
                         if (!nsSnv.alive) {
-                          return Column(
-                            children: [
-                              ListTile(
-                                title: Center(
-                                  child: Text(
-                                    "Posição " +
-                                        nsSnv.pos.toString() +
-                                        " e mutação " +
-                                        nsSnv.alt,
-                                    style: TextStyle(
-                                      fontSize: 18,
+                          if ((bloc.posRestricao == "" ||
+                                  nsSnv.pos
+                                      .toString()
+                                      .contains(bloc.posRestricao)) &&
+                              (nsSnv.result != null && nsSnv.result != "")) {
+                            return Column(
+                              children: [
+                                ListTile(
+                                  title: Center(
+                                    child: Text(
+                                      "Posição " +
+                                          nsSnv.pos.toString() +
+                                          " e mutação " +
+                                          nsSnv.alt,
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                subtitle: Center(
-                                  child: Text("Cromossomo " +
-                                      nsSnv.chr +
-                                      " e referência " +
-                                      nsSnv.ref),
-                                ),
-                                trailing: Container(
-                                  child: IconButton(
-                                    onPressed: () {
-                                      bloc.delete(nsSnv.idNsSNV);
-                                      Future.delayed(
-                                        const Duration(milliseconds: 300),
-                                        () {
-                                          _handleRefresh();
-                                        },
-                                      );
-                                    },
-                                    icon: new Icon(Icons.delete),
+                                  subtitle: Center(
+                                    child: Text("Cromossomo " +
+                                        nsSnv.chr +
+                                        " e referência " +
+                                        nsSnv.ref),
                                   ),
-                                ),
-                                // onTap: () {
-                                //   blocRequest.processPrediction(nsSnv.result);
-                                //   Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //       builder: (context) => PredictResultPage(),
-                                //     ),
-                                //   );
-                                // },
-                              ),
-                              SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  children: <Widget>[
-                                    GestureDetector(
-                                      onTap: () {
-                                        blocRequest.processPrediction(
-                                          nsSnv.result,
-                                        );
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                PredictResultPage(),
-                                          ),
+                                  trailing: Container(
+                                    child: IconButton(
+                                      onPressed: () {
+                                        bloc.delete(nsSnv.idNsSNV);
+                                        Future.delayed(
+                                          const Duration(milliseconds: 300),
+                                          () {
+                                            _handleRefresh();
+                                          },
                                         );
                                       },
-                                      child: Container(
-                                        // padding:
-                                        //     EdgeInsets.all(kDefaultPadding / 2),
-                                        margin: EdgeInsets.only(
-                                            // left: kDefaultPadding,
-                                            // top: kDefaultPadding / 2,
-                                            // bottom: kDefaultPadding * 2.5,
-                                            // right: kDefaultPadding,
+                                      icon: new Icon(Icons.delete),
+                                    ),
+                                  ),
+                                  // onTap: () {
+                                  //   blocRequest.processPrediction(nsSnv.result);
+                                  //   Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //       builder: (context) => PredictResultPage(),
+                                  //     ),
+                                  //   );
+                                  // },
+                                ),
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: <Widget>[
+                                      GestureDetector(
+                                        onTap: () {
+                                          blocRequest.processPrediction(
+                                            nsSnv.result,
+                                          );
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PredictResultPage(),
                                             ),
-                                        width: size.width * 0.3,
-                                        child: Column(
-                                          children: [
-                                            Center(
-                                              child: Text(
-                                                bloc.processPrediction(
-                                                    nsSnv.result),
-                                                style: TextStyle(
-                                                  fontSize: 70,
-                                                  color: bloc.getColorPred(
-                                                    bloc.processPrediction(
-                                                        nsSnv.result),
+                                          );
+                                        },
+                                        child: Container(
+                                          // padding:
+                                          //     EdgeInsets.all(kDefaultPadding / 2),
+                                          margin: EdgeInsets.only(
+                                              // left: kDefaultPadding,
+                                              // top: kDefaultPadding / 2,
+                                              // bottom: kDefaultPadding * 2.5,
+                                              // right: kDefaultPadding,
+                                              ),
+                                          width: size.width * 0.3,
+                                          child: Column(
+                                            children: [
+                                              Center(
+                                                child: Text(
+                                                  bloc.processPrediction(
+                                                      nsSnv.result),
+                                                  style: TextStyle(
+                                                    fontSize: 70,
+                                                    color: bloc.getColorPred(
+                                                      bloc.processPrediction(
+                                                          nsSnv.result),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    blurRadius: 50,
-                                                    color: kPrimaryColor
-                                                        .withOpacity(0.2),
-                                                  ),
-                                                ],
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      blurRadius: 50,
+                                                      color: kPrimaryColor
+                                                          .withOpacity(0.2),
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: Text(
+                                                  "RESULTADO",
+                                                ),
                                               ),
-                                              child: Text(
-                                                "RESULTADO",
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      blurRadius: 50,
+                                                      color: kPrimaryColor
+                                                          .withOpacity(0.2),
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: Text(
+                                                  "ÁRVORE",
+                                                ),
                                               ),
-                                            ),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    blurRadius: 50,
-                                                    color: kPrimaryColor
-                                                        .withOpacity(0.2),
-                                                  ),
-                                                ],
-                                              ),
-                                              child: Text(
-                                                "ÁRVORE",
-                                              ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Container(
-                                      // padding:
-                                      //     EdgeInsets.all(kDefaultPadding / 2),
-                                      margin: EdgeInsets.only(
-                                        left: kDefaultPadding,
-                                        // top: kDefaultPadding / 2,
-                                        // bottom: kDefaultPadding * 2.5,
-                                      ),
-                                      width: size.width * 0.3,
-                                      child: Column(
-                                        children: [
-                                          Center(
-                                            child: Text(
-                                              bloc
-                                                  .getNdamage(nsSnv.result)
-                                                  .toString(),
-                                              style: TextStyle(
-                                                fontSize: 70,
-                                                color: bloc.getColor(
-                                                  bloc.getNdamage(
-                                                    nsSnv.result,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  blurRadius: 50,
-                                                  color: kPrimaryColor
-                                                      .withOpacity(0.2),
-                                                ),
-                                              ],
-                                            ),
-                                            child: Text(
-                                              "NDAMAGE",
-                                            ),
-                                          ),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  blurRadius: 50,
-                                                  color: kPrimaryColor
-                                                      .withOpacity(0.2),
-                                                ),
-                                              ],
-                                            ),
-                                            child: Text(
-                                              "ÁRVORE",
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        blocRequestML.processPrediction(
-                                          nsSnv.resultML,
-                                        );
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                PredictResultPageML(),
-                                          ),
-                                        );
-                                      },
-                                      child: Container(
+                                      Container(
                                         // padding:
                                         //     EdgeInsets.all(kDefaultPadding / 2),
                                         margin: EdgeInsets.only(
@@ -368,14 +307,13 @@ class _PredictPageState extends State<PredictPage> {
                                             Center(
                                               child: Text(
                                                 bloc
-                                                    .getNdamageML(
-                                                        nsSnv.resultML)
+                                                    .getNdamage(nsSnv.result)
                                                     .toString(),
                                                 style: TextStyle(
                                                   fontSize: 70,
                                                   color: bloc.getColor(
-                                                    bloc.getNdamageML(
-                                                      nsSnv.resultML,
+                                                    bloc.getNdamage(
+                                                      nsSnv.result,
                                                     ),
                                                   ),
                                                 ),
@@ -406,18 +344,138 @@ class _PredictPageState extends State<PredictPage> {
                                                 ],
                                               ),
                                               child: Text(
-                                                "IA".toUpperCase(),
+                                                "ÁRVORE",
                                               ),
                                             ),
                                           ],
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                      GestureDetector(
+                                        onTap: () {
+                                          blocRequestML.processPrediction(
+                                            nsSnv.resultML,
+                                          );
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PredictResultPageML(),
+                                            ),
+                                          );
+                                        },
+                                        child: Container(
+                                          // padding:
+                                          //     EdgeInsets.all(kDefaultPadding / 2),
+                                          margin: EdgeInsets.only(
+                                            left: kDefaultPadding,
+                                            // top: kDefaultPadding / 2,
+                                            // bottom: kDefaultPadding * 2.5,
+                                          ),
+                                          width: size.width * 0.3,
+                                          child: Column(
+                                            children: [
+                                              Center(
+                                                child: Text(
+                                                  bloc
+                                                      .getNdamageML(
+                                                          nsSnv.resultML)
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                    fontSize: 70,
+                                                    color: bloc.getColor(
+                                                      bloc.getNdamageML(
+                                                        nsSnv.resultML,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      blurRadius: 50,
+                                                      color: kPrimaryColor
+                                                          .withOpacity(0.2),
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: Text(
+                                                  "NDAMAGE",
+                                                ),
+                                              ),
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      blurRadius: 50,
+                                                      color: kPrimaryColor
+                                                          .withOpacity(0.2),
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: Text(
+                                                  "AM".toUpperCase(),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
-                          );
+                              ],
+                            );
+                          } else if (nsSnv.result == null) {
+                            return Column(
+                              children: [
+                                ListTile(
+                                  title: Center(
+                                    child: Text(
+                                      "Posição " +
+                                          nsSnv.pos.toString() +
+                                          " e mutação " +
+                                          nsSnv.alt,
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ),
+                                  subtitle: Center(
+                                    child: Text("Cromossomo " +
+                                        nsSnv.chr +
+                                        " e referência " +
+                                        nsSnv.ref),
+                                  ),
+                                  trailing: Container(
+                                    child: IconButton(
+                                      onPressed: () {
+                                        bloc.delete(nsSnv.idNsSNV);
+                                        Future.delayed(
+                                          const Duration(milliseconds: 300),
+                                          () {
+                                            _handleRefresh();
+                                          },
+                                        );
+                                      },
+                                      icon: new Icon(Icons.delete),
+                                    ),
+                                  ),
+                                ),
+                                Center(
+                                  child: Text(
+                                    'Predição não validada, verifique se informou corretamente os dados de entrada!',
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )
+                              ],
+                            );
+                          } else
+                            return Column();
                         } else {
                           return ListTile(
                             title: Text("Posição " +

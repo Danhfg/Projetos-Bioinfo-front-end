@@ -8,6 +8,11 @@ class AuthRepository {
   AuthRepository() {
     client = Dio();
     client.options.baseUrl = BASE_URL;
+    client.options.headers.addAll({
+      "Content-Type": "application/json",
+      "Accept": "*/*",
+      "Access-Control-Allow-Origin": '*',
+    });
     //client.interceptors.add(CustomIntercetors());
   }
   Future<String> login(Map<String, dynamic> data) async {

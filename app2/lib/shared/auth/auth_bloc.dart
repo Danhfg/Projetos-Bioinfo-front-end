@@ -38,6 +38,7 @@ class AuthBloc extends BlocBase {
         value.setString("jwt", jwt);
       },
     );
+    print(res);
     return jwt;
   }
 
@@ -71,6 +72,7 @@ class AuthBloc extends BlocBase {
     yield 0;
     try {
       var response = await repo.loginmodel(signinModel);
+      print(response);
       jwt = response.data /*['token']*/;
       SharedPreferences.getInstance().then(
         (value) {
@@ -80,6 +82,7 @@ class AuthBloc extends BlocBase {
       reset();
       yield response.statusCode;
     } catch (e) {
+      print(e.toString());
       throw e;
     }
   }
