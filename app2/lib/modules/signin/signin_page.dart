@@ -75,7 +75,7 @@ class _SignInPageState extends State<SignInPage> {
                           },
                           validator: (String value) {
                             if (value.isEmpty) {
-                              return 'Campo não pode ser vazio!';
+                              return 'Field cannot be empty!';
                             }
                             return null;
                           },
@@ -88,7 +88,7 @@ class _SignInPageState extends State<SignInPage> {
                           keyboardType: TextInputType.text,
                           obscureText: true,
                           decoration: InputDecoration(
-                            labelText: "Senha",
+                            labelText: "Password",
                             labelStyle: TextStyle(
                               color: Colors.black38,
                               fontWeight: FontWeight.w400,
@@ -101,7 +101,7 @@ class _SignInPageState extends State<SignInPage> {
                           },
                           validator: (String value) {
                             if (value.isEmpty) {
-                              return 'Campo não pode ser vazio!';
+                              return 'Field cannot be empty!';
                             }
                             return null;
                           },
@@ -111,7 +111,7 @@ class _SignInPageState extends State<SignInPage> {
                           alignment: Alignment.centerRight,
                           child: FlatButton(
                             child: Text(
-                              "Recuperar Senha",
+                              "Recover Password",
                               textAlign: TextAlign.right,
                             ),
                           ),
@@ -143,7 +143,7 @@ class _SignInPageState extends State<SignInPage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Text(
-                                    "Entrar",
+                                    "Login",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
@@ -172,7 +172,7 @@ class _SignInPageState extends State<SignInPage> {
                           height: 40,
                           child: FlatButton(
                             child: Text(
-                              "Cadastre-se",
+                              "Register",
                               textAlign: TextAlign.center,
                             ),
                             onPressed: () {
@@ -232,7 +232,7 @@ class _SignInPageState extends State<SignInPage> {
                               },
                               validator: (String value) {
                                 if (value.isEmpty) {
-                                  return 'Campo não pode ser vazio!';
+                                  return 'Field cannot be empty!';
                                 }
                                 return null;
                               },
@@ -245,7 +245,7 @@ class _SignInPageState extends State<SignInPage> {
                               keyboardType: TextInputType.text,
                               obscureText: true,
                               decoration: InputDecoration(
-                                labelText: "Senha",
+                                labelText: "Password",
                                 labelStyle: TextStyle(
                                   color: Colors.black38,
                                   fontWeight: FontWeight.w400,
@@ -258,7 +258,7 @@ class _SignInPageState extends State<SignInPage> {
                               },
                               validator: (String value) {
                                 if (value.isEmpty) {
-                                  return 'Campo não pode ser vazio!';
+                                  return 'Field cannot be empty!';
                                 }
                                 return null;
                               },
@@ -268,7 +268,7 @@ class _SignInPageState extends State<SignInPage> {
                               alignment: Alignment.centerRight,
                               child: FlatButton(
                                 child: Text(
-                                  "Recuperar Senha",
+                                  "Recover Password",
                                   textAlign: TextAlign.right,
                                 ),
                               ),
@@ -300,7 +300,7 @@ class _SignInPageState extends State<SignInPage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Text(
-                                        "Entrar",
+                                        "Login",
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white,
@@ -329,7 +329,7 @@ class _SignInPageState extends State<SignInPage> {
                               height: 40,
                               child: FlatButton(
                                 child: Text(
-                                  "Cadastre-se",
+                                  "Register",
                                   textAlign: TextAlign.center,
                                 ),
                                 onPressed: () {
@@ -354,7 +354,7 @@ class _SignInPageState extends State<SignInPage> {
                 });
                 return Center(
                     child: Text(
-                  "Login efetuado com sucesso!",
+                  "Login successful!",
                   style: TextStyle(fontSize: 25),
                 ));
               }
@@ -394,7 +394,7 @@ class _SignInPageState extends State<SignInPage> {
                           },
                           validator: (String value) {
                             if (value.isEmpty) {
-                              return 'Campo não pode ser vazio!';
+                              return 'Field cannot be empty!';
                             }
                             return null;
                           },
@@ -407,7 +407,7 @@ class _SignInPageState extends State<SignInPage> {
                           keyboardType: TextInputType.text,
                           obscureText: true,
                           decoration: InputDecoration(
-                            labelText: "Senha",
+                            labelText: "Password",
                             labelStyle: TextStyle(
                               color: Colors.black38,
                               fontWeight: FontWeight.w400,
@@ -420,7 +420,7 @@ class _SignInPageState extends State<SignInPage> {
                           },
                           validator: (String value) {
                             if (value.isEmpty) {
-                              return 'Campo não pode ser vazio!';
+                              return 'Field cannot be empty!';
                             }
                             return null;
                           },
@@ -430,7 +430,7 @@ class _SignInPageState extends State<SignInPage> {
                           alignment: Alignment.centerRight,
                           child: FlatButton(
                             child: Text(
-                              "Recuperar Senha",
+                              "Recover Password",
                               textAlign: TextAlign.right,
                             ),
                           ),
@@ -462,7 +462,7 @@ class _SignInPageState extends State<SignInPage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Text(
-                                    "Entrar",
+                                    "Login",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
@@ -491,7 +491,7 @@ class _SignInPageState extends State<SignInPage> {
                           height: 40,
                           child: FlatButton(
                             child: Text(
-                              "Cadastre-se",
+                              "Register",
                               textAlign: TextAlign.center,
                             ),
                             onPressed: () {

@@ -96,12 +96,12 @@ class PredictBloc extends BlocBase {
       ++nDAMAGE;
     }
     if (allPredictors["Polyphen2_HVAR_pred"] != null &&
-        allPredictors["Polyphen2_HVAR_pred"].contains("D") &&
+            allPredictors["Polyphen2_HVAR_pred"].contains("D") ||
         allPredictors["Polyphen2_HVAR_pred"].contains("P")) {
       ++nDAMAGE;
     }
     if (allPredictors["Polyphen2_HDIV_pred"] != null &&
-        allPredictors["Polyphen2_HDIV_pred"].contains("D") &&
+            allPredictors["Polyphen2_HDIV_pred"].contains("D") ||
         allPredictors["Polyphen2_HDIV_pred"].contains("P")) {
       ++nDAMAGE;
     }
@@ -126,13 +126,8 @@ class PredictBloc extends BlocBase {
             allPredictors["MutationAssessor_pred"].contains("M"))) {
       ++nDAMAGE;
     }
-    if (allPredictors["Polyphen2_HVAR_pred"] != null &&
-        allPredictors["Polyphen2_HVAR_pred"].contains("D") &&
-        allPredictors["Polyphen2_HVAR_pred"].contains("P")) {
-      ++nDAMAGE;
-    }
     if (allPredictors["MutationTaster_pred"] != null &&
-        allPredictors["MutationTaster_pred"].contains("D") &&
+            allPredictors["MutationTaster_pred"].contains("D") ||
         allPredictors["MutationTaster_pred"].contains("A")) {
       ++nDAMAGE;
     }
@@ -219,11 +214,10 @@ class PredictBloc extends BlocBase {
       return "I";
     }
 
-    if (!(allPredictors['SIFT_pred'].contains("D")) &&
-        !(allPredictors['Polyphen2_HDIV_pred'].contains("D") ||
-            allPredictors["Polyphen2_HDIV_pred"].contains("P")) &&
-        !(allPredictors['PROVEAN_pred'].contains("D"))) {
-      return "N";
+    if ((allPredictors['SIFT_pred'].contains("T")) &&
+        allPredictors['Polyphen2_HDIV_pred'].contains("B") &&
+        allPredictors['PROVEAN_pred'].contains("N")) {
+      return "B";
     } else {
       if (exacResut != null && double.parse(exacResut) < 0.0001) {
         return "P";
@@ -266,11 +260,6 @@ class PredictBloc extends BlocBase {
         if (allPredictors["MutationAssessor_pred"] != null &&
             (allPredictors["MutationAssessor_pred"].contains("H") ||
                 allPredictors["MutationAssessor_pred"].contains("M"))) {
-          ++nDAMAGE;
-        }
-        if (allPredictors["Polyphen2_HVAR_pred"] != null &&
-            allPredictors["Polyphen2_HVAR_pred"].contains("D") &&
-            allPredictors["Polyphen2_HVAR_pred"].contains("P")) {
           ++nDAMAGE;
         }
         if (allPredictors["MutationTaster_pred"] != null &&
@@ -323,11 +312,11 @@ class PredictBloc extends BlocBase {
           ++nDAMAGE;
         }
         if (nDAMAGE <= 6) {
-          return "N";
+          return "B";
         } else if (common != null && double.parse(common) < 0.0001) {
           return "P";
         } else {
-          return "N";
+          return "B";
         }
       }
     }
@@ -336,7 +325,7 @@ class PredictBloc extends BlocBase {
   Color getColorPred(String res) {
     if (res == "P")
       return Colors.red[400];
-    else if (res == "N")
+    else if (res == "B")
       return Colors.lightGreen;
     else
       return Colors.yellow;

@@ -57,7 +57,7 @@ class _SignupPageState extends State<SignupPage> {
                           },
                           validator: (String value) {
                             if (value.isEmpty) {
-                              return 'Campo não pode ser vazio!';
+                              return 'Field cannot be empty!';
                             }
                             return null;
                           },
@@ -69,7 +69,7 @@ class _SignupPageState extends State<SignupPage> {
                           // autofocus: true,
                           keyboardType: TextInputType.name,
                           decoration: InputDecoration(
-                            labelText: "Nome",
+                            labelText: "Name",
                             labelStyle: TextStyle(
                               color: Colors.black38,
                               fontWeight: FontWeight.w400,
@@ -82,7 +82,7 @@ class _SignupPageState extends State<SignupPage> {
                           },
                           validator: (String value) {
                             if (value.isEmpty) {
-                              return 'Campo não pode ser vazio!';
+                              return 'Field cannot be empty!';
                             }
                             return null;
                           },
@@ -92,7 +92,7 @@ class _SignupPageState extends State<SignupPage> {
                           keyboardType: TextInputType.text,
                           obscureText: true,
                           decoration: InputDecoration(
-                            labelText: "Senha",
+                            labelText: "Password",
                             labelStyle: TextStyle(
                               color: Colors.black38,
                               fontWeight: FontWeight.w400,
@@ -105,7 +105,7 @@ class _SignupPageState extends State<SignupPage> {
                           },
                           validator: (String value) {
                             if (value.isEmpty) {
-                              return 'Campo não pode ser vazio!';
+                              return 'Field cannot be empty!';
                             }
                             return null;
                           },
@@ -137,7 +137,7 @@ class _SignupPageState extends State<SignupPage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Text(
-                                    "Cadastrar",
+                                    "Register",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
@@ -196,7 +196,7 @@ class _SignupPageState extends State<SignupPage> {
                 });
                 return Center(
                     child: Text(
-                  "Cadastro efetuado com sucesso!",
+                  "Registration done successfully!",
                   style: TextStyle(fontSize: 25),
                 ));
               }
@@ -236,7 +236,7 @@ class _SignupPageState extends State<SignupPage> {
                           },
                           validator: (String value) {
                             if (value.isEmpty) {
-                              return 'Campo não pode ser vazio!';
+                              return 'Field cannot be empty!';
                             }
                             return null;
                           },
@@ -245,7 +245,7 @@ class _SignupPageState extends State<SignupPage> {
                           // autofocus: true,
                           keyboardType: TextInputType.name,
                           decoration: InputDecoration(
-                            labelText: "Nome",
+                            labelText: "Name",
                             labelStyle: TextStyle(
                               color: Colors.black38,
                               fontWeight: FontWeight.w400,
@@ -258,7 +258,7 @@ class _SignupPageState extends State<SignupPage> {
                           },
                           validator: (String value) {
                             if (value.isEmpty) {
-                              return 'Campo não pode ser vazio!';
+                              return 'Field cannot be empty!';
                             }
                             return null;
                           },
@@ -268,7 +268,7 @@ class _SignupPageState extends State<SignupPage> {
                           keyboardType: TextInputType.text,
                           obscureText: true,
                           decoration: InputDecoration(
-                            labelText: "Senha",
+                            labelText: "Password",
                             labelStyle: TextStyle(
                               color: Colors.black38,
                               fontWeight: FontWeight.w400,
@@ -281,7 +281,7 @@ class _SignupPageState extends State<SignupPage> {
                           },
                           validator: (String value) {
                             if (value.isEmpty) {
-                              return 'Campo não pode ser vazio!';
+                              return 'Field cannot be empty!';
                             }
                             return null;
                           },
@@ -313,7 +313,7 @@ class _SignupPageState extends State<SignupPage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Text(
-                                    "Cadastrar",
+                                    "Register",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,

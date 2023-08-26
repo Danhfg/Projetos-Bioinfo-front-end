@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:app2/shared/models/nsSNVModel.dart';
+import 'package:file_picker_cross/file_picker_cross.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -53,6 +55,19 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
 
   Controller controller;
 
+  Future<void> _pickFile() async {
+    FilePickerCross.pick(type: FileTypeCross.custom, fileExtension: 'txt,vcf')
+        .then(
+      (filePicker) => setState(() {
+        if (filePicker.path != null && filePicker.path != "") {
+          bloc.vcfFile = File(filePicker.path);
+          bloc.vcfName =
+              filePicker.path.split("/")[filePicker.path.split("/").length - 1];
+        }
+      }),
+    );
+  }
+
   @override
   void didChangeDependencies() {
     controller = Controller();
@@ -63,7 +78,7 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Solicitar Predição"),
+        title: Text("Get Prediction"),
         //centerTitle: true,
       ),
       // resizeToAvoidBottomPadding: false,
@@ -77,7 +92,7 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
               });
               return Center(
                 child: Text(
-                  "Solicitação não concluída, tente novamente mais tarde, se o problema persistir entre em contato com nosso suporte",
+                  "Request not completed, please try again later, if the problem persists contact our support",
                   style: TextStyle(fontSize: 25),
                 ),
               );
@@ -95,7 +110,7 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                 });
                 return Center(
                     child: Text(
-                  "Predição solicitada com sucesso!",
+                  "Successfully requested prediction!",
                   style: TextStyle(fontSize: 25),
                 ));
               }
@@ -113,6 +128,21 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                'File: ' + bloc.vcfName,
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                            ElevatedButton(
+                              onPressed: _pickFile, // Usar a função _pickFile
+                              child: Text('Upload VCF File'),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 16),
                         TextFormField(
                           autofocus: true,
                           keyboardType: TextInputType.text,
@@ -123,7 +153,7 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                             bloc.chr = chrInput;
                           },
                           decoration: InputDecoration(
-                            labelText: "Cromossomo",
+                            labelText: "Chromossome",
                             labelStyle: TextStyle(
                               color: Colors.black38,
                               fontWeight: FontWeight.w400,
@@ -132,10 +162,10 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                           ),
                           validator: (String value) {
                             if (value.isEmpty) {
-                              return 'Campo não pode ser vazio!';
+                              return 'Field cannot be empty!';
                             }
                             if (!chrList.contains(value)) {
-                              return 'Cromosso inválido, por favor insira um cromossomo válido!';
+                              return 'Invalid chromosome, please enter a valid chromosome!';
                             }
                             return null;
                           },
@@ -147,7 +177,7 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                             bloc.pos = int.parse(posInput);
                           },
                           decoration: InputDecoration(
-                            labelText: "Posição",
+                            labelText: "Position",
                             labelStyle: TextStyle(
                               color: Colors.black38,
                               fontWeight: FontWeight.w400,
@@ -156,7 +186,7 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                           ),
                           validator: (String value) {
                             if (value.isEmpty) {
-                              return 'Campo não pode ser vazio!';
+                              return 'Field cannot be empty!';
                             }
                             return null;
                           },
@@ -171,7 +201,7 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                             bloc.ref = refInput;
                           },
                           decoration: InputDecoration(
-                            labelText: "Nucleotídeo referência",
+                            labelText: "Reference nucleotide",
                             labelStyle: TextStyle(
                               color: Colors.black38,
                               fontWeight: FontWeight.w400,
@@ -180,10 +210,10 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                           ),
                           validator: (String value) {
                             if (value.isEmpty) {
-                              return 'Campo não pode ser vazio!';
+                              return 'Field cannot be empty!';
                             }
                             if (!nucList.contains(value)) {
-                              return 'Nucleotídeo inválido!';
+                              return 'Invalid nucleotide!';
                             }
                             return null;
                           },
@@ -198,7 +228,7 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                             bloc.alt = altInput;
                           },
                           decoration: InputDecoration(
-                            labelText: "Nucleotídeo alternativo",
+                            labelText: "Alternative nucleotide",
                             labelStyle: TextStyle(
                               color: Colors.black38,
                               fontWeight: FontWeight.w400,
@@ -207,10 +237,10 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                           ),
                           validator: (String value) {
                             if (value.isEmpty) {
-                              return 'Campo não pdoe ser vazio!';
+                              return 'Field cannot be empty!';
                             }
                             if (!nucList.contains(value)) {
-                              return 'Nucleotídeo inválido!';
+                              return 'Invalid nucleotide!';
                             }
                             return null;
                           },
@@ -255,7 +285,7 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Text(
-                                    "Solicitar Predição",
+                                    "Request Prediction",
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
@@ -307,7 +337,7 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                     ),
                     validator: (String value) {
                       if (value.isEmpty) {
-                        return 'Campo não pdoe ser vazio!';
+                        return 'Field cannot be empty!';
                       }
                       return null;
                     },
@@ -331,7 +361,7 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                     ),
                     validator: (String value) {
                       if (value.isEmpty) {
-                        return 'Campo não pode ser vazio!';
+                        return 'Field cannot be empty!';
                       }
                       return null;
                     },
@@ -372,7 +402,7 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                     ),
                     validator: (String value) {
                       if (value.isEmpty) {
-                        return 'Campo não pdoe ser vazio!';
+                        return 'Field cannot be empty!';
                       }
                       return null;
                     },

@@ -1,7 +1,9 @@
 import 'package:app2/modules/predict/components/menuBar_bloc.dart';
 import 'package:app2/modules/predict/components/menuBar_repository.dart';
+import 'package:app2/modules/predict/filters/filter_bloc.dart';
 import 'package:app2/modules/predictResult/predictResult_bloc.dart';
 import 'package:app2/modules/predictResultML/predictResultML_bloc.dart';
+import 'package:app2/modules/predict_cllinvar/predict_clinvar_bloc.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
@@ -33,9 +35,15 @@ class PredictModule extends ModuleWidget {
           (i) => new PredictResultMLBloc(),
         ),
         Bloc(
+          (i) => new PredictClinvarBloc(),
+        ),
+        Bloc(
           (i) => new MenuBarBloc(
             PredictModule.to.getDependency<MenuBarRepository>(),
           ),
+        ),
+        Bloc(
+          (i) => new SearchScreenBloc(),
         )
       ];
 

@@ -14,7 +14,7 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Resultado"),
+        title: Text("Machine Learning Result"),
         //centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -26,9 +26,9 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
                 (() {
                   if (bloc.allPredictors['LinearDiscriminantAnalysis']
                       .contains("1")) {
-                    return "Mutação Patogênica";
+                    return "Pathogenic Mutation";
                   }
-                  return "Mutação Neutra";
+                  return "Benign Mutation";
                 })(),
                 style: TextStyle(
                     color: (bloc.allPredictors['LinearDiscriminantAnalysis']
@@ -43,9 +43,9 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
                 (() {
                   if (bloc.allPredictors['QuadraticDiscriminantAnalysis']
                       .contains("1")) {
-                    return "Mutação Patogênica";
+                    return "Pathogenic Mutation";
                   }
-                  return "Mutação Neutra";
+                  return "Benign Mutation";
                 })(),
                 style: TextStyle(
                     color: (bloc.allPredictors['QuadraticDiscriminantAnalysis']
@@ -59,9 +59,9 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['AdaBoostClassifier'].contains("1")) {
-                    return "Mutação Patogênica";
+                    return "Pathogenic Mutation";
                   }
-                  return "Mutação Neutra";
+                  return "Benign Mutation";
                 })(),
                 style: TextStyle(
                     color:
@@ -75,9 +75,9 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['BaggingClassifier'].contains("1")) {
-                    return "Mutação Patogênica";
+                    return "Pathogenic Mutation";
                   }
-                  return "Mutação Neutra";
+                  return "Benign Mutation";
                 })(),
                 style: TextStyle(
                     color:
@@ -92,9 +92,9 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
                 (() {
                   if (bloc.allPredictors['ExtraTreesClassifier']
                       .contains("1")) {
-                    return "Mutação Patogênica";
+                    return "Pathogenic Mutation";
                   }
-                  return "Mutação Neutra";
+                  return "Benign Mutation";
                 })(),
                 style: TextStyle(
                     color: (bloc.allPredictors['ExtraTreesClassifier']
@@ -109,9 +109,9 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
                 (() {
                   if (bloc.allPredictors['RandomForestClassifier']
                       .contains("1")) {
-                    return "Mutação Patogênica";
+                    return "Pathogenic Mutation";
                   }
-                  return "Mutação Neutra";
+                  return "Benign Mutation";
                 })(),
                 style: TextStyle(
                     color: (bloc.allPredictors['RandomForestClassifier']
@@ -125,9 +125,9 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['LogisticRegression'].contains("1")) {
-                    return "Mutação Patogênica";
+                    return "Pathogenic Mutation";
                   }
-                  return "Mutação Neutra";
+                  return "Benign Mutation";
                 })(),
                 style: TextStyle(
                     color:
@@ -141,9 +141,9 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['BernoulliNB'].contains("1")) {
-                    return "Mutação Patogênica";
+                    return "Pathogenic Mutation";
                   }
-                  return "Mutação Neutra";
+                  return "Benign Mutation";
                 })(),
                 style: TextStyle(
                     color: (bloc.allPredictors['BernoulliNB'].contains("1"))
@@ -156,9 +156,9 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['GaussianNB'].contains("1")) {
-                    return "Mutação Patogênica";
+                    return "Pathogenic Mutation";
                   }
-                  return "Mutação Neutra";
+                  return "Benign Mutation";
                 })(),
                 style: TextStyle(
                     color: (bloc.allPredictors['GaussianNB'].contains("1"))
@@ -172,9 +172,9 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
                 (() {
                   if (bloc.allPredictors['KNeighborsClassifier']
                       .contains("1")) {
-                    return "Mutação Patogênica";
+                    return "Pathogenic Mutation";
                   }
-                  return "Mutação Neutra";
+                  return "Benign Mutation";
                 })(),
                 style: TextStyle(
                     color: (bloc.allPredictors['KNeighborsClassifier']
@@ -188,9 +188,9 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['MLPClassifier'].contains("1")) {
-                    return "Mutação Patogênica";
+                    return "Pathogenic Mutation";
                   }
-                  return "Mutação Neutra";
+                  return "Benign Mutation";
                 })(),
                 style: TextStyle(
                     color: (bloc.allPredictors['MLPClassifier'].contains("1"))
@@ -203,9 +203,9 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['LinearSVC'].contains("1")) {
-                    return "Mutação Patogênica";
+                    return "Pathogenic Mutation";
                   }
-                  return "Mutação Neutra";
+                  return "Benign Mutation";
                 })(),
                 style: TextStyle(
                     color: (bloc.allPredictors['LinearSVC'].contains("1"))
@@ -218,9 +218,9 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['NuSVC'].contains("1")) {
-                    return "Mutação Patogênica";
+                    return "Pathogenic Mutation";
                   }
-                  return "Mutação Neutra";
+                  return "Benign Mutation";
                 })(),
                 style: TextStyle(
                     color: (bloc.allPredictors['NuSVC'].contains("1"))
@@ -233,9 +233,9 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['SVC'].contains("1")) {
-                    return "Mutação Patogênica";
+                    return "Pathogenic Mutation";
                   }
-                  return "Mutação Neutra";
+                  return "Benign Mutation";
                 })(),
                 style: TextStyle(
                     color: (bloc.allPredictors['SVC'].contains("1"))
@@ -249,9 +249,9 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
                 (() {
                   if (bloc.allPredictors['DecisionTreeClassifier']
                       .contains("1")) {
-                    return "Mutação Patogênica";
+                    return "Pathogenic Mutation";
                   }
-                  return "Mutação Neutra";
+                  return "Benign Mutation";
                 })(),
                 style: TextStyle(
                     color: (bloc.allPredictors['DecisionTreeClassifier']
@@ -265,9 +265,9 @@ class _PredictResultPageMLState extends State<PredictResultPageML> {
               subtitle: Text(
                 (() {
                   if (bloc.allPredictors['ExtraTreeClassifier'].contains("1")) {
-                    return "Mutação Patogênica";
+                    return "Pathogenic Mutation ";
                   }
-                  return "Mutação Neutra";
+                  return "Benign Mutation";
                 })(),
                 style: TextStyle(
                     color: (bloc.allPredictors['ExtraTreeClassifier']

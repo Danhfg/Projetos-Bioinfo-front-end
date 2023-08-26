@@ -72,9 +72,11 @@ class PredictResultBloc extends BlocBase {
       }
       if (item.contains("ExAC_AF")) {
         exacResut = item.split(":")[1] == "." ? "0" : item.split(":")[1];
+        allPredictors["ExAC_AF"] = [exacResut];
       }
       if (item.contains("1000Gp3_AF")) {
         common = item.split(":")[1] == "." ? "0" : item.split(":")[1];
+        allPredictors["1000Gp3_AF"] = [common];
       }
     }
 

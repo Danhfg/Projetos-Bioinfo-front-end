@@ -1,5 +1,7 @@
 import 'package:app2/modules/predict/components/menuBar.dart';
 import 'package:app2/modules/predict/components/menuBar_bloc.dart';
+import 'package:app2/modules/predict/filters/filter.dart';
+import 'package:app2/modules/predict/filters/filter_bloc.dart';
 import 'package:app2/modules/predict/predict_bloc.dart';
 import 'package:app2/modules/predict/predict_module.dart';
 import 'package:app2/modules/predictRequest/predictRequest_page.dart';
@@ -7,6 +9,8 @@ import 'package:app2/modules/predictResult/predictResult_bloc.dart';
 import 'package:app2/modules/predictResult/predictResult_page.dart';
 import 'package:app2/modules/predictResultML/predictResultML_bloc.dart';
 import 'package:app2/modules/predictResultML/predictResultML_page.dart';
+import 'package:app2/modules/predict_cllinvar/predict_clinvar_bloc.dart';
+import 'package:app2/modules/predict_cllinvar/predict_clinvar_page.dart';
 import 'package:app2/shared/constants.dart';
 import 'package:app2/shared/models/nsSNVGetModel.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +30,9 @@ class _PredictPageState extends State<PredictPage> {
   var bloc = PredictModule.to.getBloc<PredictBloc>();
   var blocRequest = PredictModule.to.getBloc<PredictResultBloc>();
   var blocRequestML = PredictModule.to.getBloc<PredictResultMLBloc>();
+  var blocClinvar = PredictModule.to.getBloc<PredictClinvarBloc>();
   var menuBarBloc = PredictModule.to.getBloc<MenuBarBloc>();
+  var filterBloc = PredictModule.to.getBloc<SearchScreenBloc>();
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
   Future<Null> _handleRefresh() async {
@@ -36,7 +42,7 @@ class _PredictPageState extends State<PredictPage> {
   showSnack() {
     return scaffoldKey.currentState.showSnackBar(
       SnackBar(
-        content: Text('Nova análise adicionada!'),
+        content: Text('New analysis added!'),
       ),
     );
   }
@@ -89,7 +95,7 @@ class _PredictPageState extends State<PredictPage> {
                   child: Row(
                     children: <Widget>[
                       Text(
-                        'Bem vindo!',
+                        'Welcome!',
                         style: Theme.of(context).textTheme.headline5.copyWith(
                             color: Colors.white, fontWeight: FontWeight.bold),
                       ),
@@ -117,23 +123,43 @@ class _PredictPageState extends State<PredictPage> {
                         ),
                       ],
                     ),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: "Procurar por posição",
-                        hintStyle: TextStyle(
-                          color: kPrimaryColor.withOpacity(0.40),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            decoration: InputDecoration(
+                              hintText: "Search by position",
+                              hintStyle: TextStyle(
+                                color: kPrimaryColor.withOpacity(0.40),
+                              ),
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                            ),
+                            onSubmitted: (value) {
+                              bloc.posRestricao = (value);
+                              _handleRefresh();
+                            },
+                            onChanged: (value) {
+                              bloc.posRestricao = (value);
+                              _handleRefresh();
+                            },
+                          ),
                         ),
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                      ),
-                      onSubmitted: (value) {
-                        bloc.posRestricao = (value);
-                        _handleRefresh();
-                      },
-                      onChanged: (value) {
-                        bloc.posRestricao = (value);
-                        _handleRefresh();
-                      },
+                        IconButton(
+                          icon: Icon(Icons.filter_list),
+                          onPressed: () {
+                            // Abra um menu de filtro ou uma tela de configuração de filtro aqui
+                            // e aplique os filtros quando o usuário fizer suas seleções.
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SearchScreen()),
+                            ).then((value) {
+                              // Aqui você pode receber e aplicar os filtros selecionados, se necessário
+                            });
+                          },
+                        ),
+                      ],
                     ),
                   ),
                 )
@@ -152,7 +178,7 @@ class _PredictPageState extends State<PredictPage> {
               if (snapshot.hasError) {
                 return Center(
                   child: Text(
-                    'Nenhuma predição solicitada!',
+                    'No prediction requested!',
                     style: Theme.of(context)
                         .textTheme
                         .headline5
@@ -174,15 +200,27 @@ class _PredictPageState extends State<PredictPage> {
                                   nsSnv.pos
                                       .toString()
                                       .contains(bloc.posRestricao)) &&
-                              (nsSnv.result != null && nsSnv.result != "")) {
+                              (nsSnv.result != null && nsSnv.result != "") &&
+                              ((bloc.processPrediction(nsSnv.result) == "P" &&
+                                      filterBloc.isPathogenicSelected) ||
+                                  (bloc.processPrediction(nsSnv.result) ==
+                                          "B" &&
+                                      filterBloc.isBenignSelected) ||
+                                  (bloc.processPrediction(nsSnv.result) ==
+                                          "NF" &&
+                                      filterBloc.isNFSelected)) &&
+                              (bloc.getNdamage(nsSnv.result) >=
+                                  filterBloc.patogenicidadeTradicional) &&
+                              (bloc.getNdamageML(nsSnv.resultML) >=
+                                  filterBloc.patogenicidadeMachineLearning)) {
                             return Column(
                               children: [
                                 ListTile(
                                   title: Center(
                                     child: Text(
-                                      "Posição " +
+                                      "Position " +
                                           nsSnv.pos.toString() +
-                                          " e mutação " +
+                                          " Alternative allele " +
                                           nsSnv.alt,
                                       style: TextStyle(
                                         fontSize: 18,
@@ -190,9 +228,9 @@ class _PredictPageState extends State<PredictPage> {
                                     ),
                                   ),
                                   subtitle: Center(
-                                    child: Text("Cromossomo " +
+                                    child: Text("Chromosome " +
                                         nsSnv.chr +
-                                        " e referência " +
+                                        " and Reference allele " +
                                         nsSnv.ref),
                                   ),
                                   trailing: Container(
@@ -272,7 +310,7 @@ class _PredictPageState extends State<PredictPage> {
                                                   ],
                                                 ),
                                                 child: Text(
-                                                  "RESULTADO",
+                                                  "FINAL",
                                                 ),
                                               ),
                                               Container(
@@ -286,7 +324,7 @@ class _PredictPageState extends State<PredictPage> {
                                                   ],
                                                 ),
                                                 child: Text(
-                                                  "ÁRVORE",
+                                                  "PREDICTION",
                                                 ),
                                               ),
                                             ],
@@ -330,7 +368,7 @@ class _PredictPageState extends State<PredictPage> {
                                                 ],
                                               ),
                                               child: Text(
-                                                "NDAMAGE",
+                                                "PREDICTORS",
                                               ),
                                             ),
                                             Container(
@@ -344,7 +382,7 @@ class _PredictPageState extends State<PredictPage> {
                                                 ],
                                               ),
                                               child: Text(
-                                                "ÁRVORE",
+                                                "SCORE",
                                               ),
                                             ),
                                           ],
@@ -401,7 +439,7 @@ class _PredictPageState extends State<PredictPage> {
                                                   ],
                                                 ),
                                                 child: Text(
-                                                  "NDAMAGE",
+                                                  "ML ",
                                                 ),
                                               ),
                                               Container(
@@ -415,7 +453,66 @@ class _PredictPageState extends State<PredictPage> {
                                                   ],
                                                 ),
                                                 child: Text(
-                                                  "AM".toUpperCase(),
+                                                  "SCORE".toUpperCase(),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          blocClinvar.processClinvar(
+                                            nsSnv.resultClinvar,
+                                          );
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PredictClinvarPage(),
+                                            ),
+                                          );
+                                        },
+                                        child: Container(
+                                          // padding:
+                                          //     EdgeInsets.all(kDefaultPadding / 2),
+                                          margin: EdgeInsets.only(
+                                            left: kDefaultPadding,
+                                            // top: kDefaultPadding / 2,
+                                            // bottom: kDefaultPadding * 2.5,
+                                          ),
+                                          width: size.width * 0.3,
+                                          child: Column(
+                                            children: [
+                                              Center(
+                                                child: Text(
+                                                  blocClinvar
+                                                      .processClinvar(
+                                                          nsSnv.resultClinvar)
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                    fontSize: 70,
+                                                    color: blocClinvar.getColor(
+                                                      blocClinvar
+                                                          .processClinvar(nsSnv
+                                                              .resultClinvar)
+                                                          .toString(),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      blurRadius: 50,
+                                                      color: kPrimaryColor
+                                                          .withOpacity(0.2),
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: Text(
+                                                  "CLINVAR",
                                                 ),
                                               ),
                                             ],

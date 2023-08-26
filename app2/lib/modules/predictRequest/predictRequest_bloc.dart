@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:app2/shared/models/nsSNVModel.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 
@@ -6,6 +8,10 @@ import 'package:rxdart/rxdart.dart';
 
 class PredictRequestBloc extends BlocBase {
   final PredictRepository predictRepository;
+
+  File vcfFile;
+
+  String vcfName = "No vcf selected";
 
   PredictRequestBloc(this.predictRepository) {
     responseOut = resultPrediction.switchMap(postDecisionTree);

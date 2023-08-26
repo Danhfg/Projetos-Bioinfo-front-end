@@ -27,6 +27,8 @@ dependencies:
   dio: 3.0.9
   rxdart: ^0.22.1+1
 #  rxdart: ^0.24.1
+  # file_selector: ^0.7.0
+  file_picker_cross: ^3.1.0 
   bloc_pattern: ^2.5.1
   flutter:
     sdk: flutter
