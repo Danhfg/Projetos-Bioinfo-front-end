@@ -19,12 +19,15 @@ class PredictRequestBloc extends BlocBase {
   reset() {
     resultPrediction = BehaviorSubject<NsSNVModel>();
     responseOut = resultPrediction.switchMap(postDecisionTree);
+    vcfName = "No vcf selected";
+    vcfContent = "";
   }
 
   String chr;
   int pos;
   String ref;
   String alt;
+  String vcfContent;
 
   var resultPrediction = BehaviorSubject<NsSNVModel>();
 

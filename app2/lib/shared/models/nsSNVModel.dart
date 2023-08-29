@@ -6,8 +6,10 @@ class NsSNVModel {
   final String ref;
   final String alt;
   String identification;
+  String vcf;
 
-  NsSNVModel({this.chr, this.pos, this.ref, this.alt, this.identification});
+  NsSNVModel(
+      {this.chr, this.pos, this.ref, this.alt, this.identification, this.vcf});
 
   Map<String, dynamic> toMap() {
     return {
@@ -16,6 +18,7 @@ class NsSNVModel {
       'ref': ref,
       'alt': alt,
       'identification': identification,
+      'vcf': vcf,
     };
   }
 
@@ -28,6 +31,7 @@ class NsSNVModel {
       ref: map['ref'],
       alt: map['alt'],
       identification: map['identification'],
+      vcf: map['vcf'],
     );
   }
 

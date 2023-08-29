@@ -66,6 +66,7 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
         }
       }),
     );
+    bloc.vcfContent = await bloc.vcfFile.readAsString();
   }
 
   @override
@@ -161,10 +162,12 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                             ),
                           ),
                           validator: (String value) {
-                            if (value.isEmpty) {
+                            if (value.isEmpty &&
+                                bloc.vcfName == "No vcf selected") {
                               return 'Field cannot be empty!';
                             }
-                            if (!chrList.contains(value)) {
+                            if (!chrList.contains(value) &&
+                                bloc.vcfName == "No vcf selected") {
                               return 'Invalid chromosome, please enter a valid chromosome!';
                             }
                             return null;
@@ -174,7 +177,9 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                           autofocus: true,
                           keyboardType: TextInputType.number,
                           onSaved: (String posInput) {
-                            bloc.pos = int.parse(posInput);
+                            if (posInput.isNotEmpty) {
+                              bloc.pos = int.parse(posInput);
+                            }
                           },
                           decoration: InputDecoration(
                             labelText: "Position",
@@ -185,7 +190,8 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                             ),
                           ),
                           validator: (String value) {
-                            if (value.isEmpty) {
+                            if (value.isEmpty &&
+                                bloc.vcfName == "No vcf selected") {
                               return 'Field cannot be empty!';
                             }
                             return null;
@@ -209,10 +215,12 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                             ),
                           ),
                           validator: (String value) {
-                            if (value.isEmpty) {
+                            if (value.isEmpty &&
+                                bloc.vcfName == "No vcf selected") {
                               return 'Field cannot be empty!';
                             }
-                            if (!nucList.contains(value)) {
+                            if (!nucList.contains(value) &&
+                                bloc.vcfName == "No vcf selected") {
                               return 'Invalid nucleotide!';
                             }
                             return null;
@@ -236,10 +244,12 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                             ),
                           ),
                           validator: (String value) {
-                            if (value.isEmpty) {
+                            if (value.isEmpty &&
+                                bloc.vcfName == "No vcf selected") {
                               return 'Field cannot be empty!';
                             }
-                            if (!nucList.contains(value)) {
+                            if (!nucList.contains(value) &&
+                                bloc.vcfName == "No vcf selected") {
                               return 'Invalid nucleotide!';
                             }
                             return null;
@@ -272,11 +282,11 @@ class _PredictRequestPageState extends State<PredictRequestPage> {
                                   {
                                     bloc.responseIn.add(
                                       NsSNVModel(
-                                        chr: bloc.chr,
-                                        pos: bloc.pos,
-                                        ref: bloc.ref,
-                                        alt: bloc.alt,
-                                      ),
+                                          chr: bloc.chr,
+                                          pos: bloc.pos,
+                                          ref: bloc.ref,
+                                          alt: bloc.alt,
+                                          vcf: bloc.vcfContent),
                                     ),
                                   }
                               },
