@@ -32,7 +32,15 @@
 .packages
 .pub-cache/
 .pub/
-/build/
+#/build/
+/build/4ba28050299b8c54040457c450227e8f
+/build/app
+/build/file_picker
+/build/flutter_assets
+/build/flutter_plugin_android_lifecycle
+/build/kotlin
+/build/shared_preferences
+#/build/web
 
 # Web related
 lib/generated_plugin_registrant.dart
