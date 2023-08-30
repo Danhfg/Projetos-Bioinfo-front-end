@@ -8,6 +8,7 @@ class PredictResultBloc extends BlocBase {
     allPredictors = {};
     dtPrediction = "";
     exacResut = null;
+    genename = "";
   }
 
   Map<String, List<String>> allPredictors = {};
@@ -19,6 +20,8 @@ class PredictResultBloc extends BlocBase {
   String exacResut;
 
   String common;
+
+  String genename;
 
   /*final Map<String, Map<String, String>> resultPTbyPred = {
     "SIFT4G_pred": {"D": "Patogênica", "T": "Neutra"},
@@ -62,6 +65,7 @@ class PredictResultBloc extends BlocBase {
   void processPrediction(String result) {
     exacResut = "0";
     common = "0";
+    genename = "";
     allPredictors = {};
     //String resultPorcess = result.replaceAll("dbNSFP_", "");
     List<String> resultList = result.split("\n");
@@ -77,6 +81,9 @@ class PredictResultBloc extends BlocBase {
       if (item.contains("1000Gp3_AF")) {
         common = item.split(":")[1] == "." ? "0" : item.split(":")[1];
         allPredictors["1000Gp3_AF"] = [common];
+      }
+      if (item.contains("genename")) {
+        genename = item.split(":")[1].split(";")[0];
       }
     }
 

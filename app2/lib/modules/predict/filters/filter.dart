@@ -118,6 +118,7 @@ class _SearchScreenState extends State<SearchScreen> {
               onChanged: (String newValue) {
                 setState(() {
                   searchScreenBloc.selectedPredefinedList = newValue;
+                  searchScreenBloc.updateList(newValue);
                 });
               },
               items: predefinedLists.map<DropdownMenuItem<String>>(

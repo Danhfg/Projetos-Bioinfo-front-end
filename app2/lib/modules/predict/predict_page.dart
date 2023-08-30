@@ -212,7 +212,11 @@ class _PredictPageState extends State<PredictPage> {
                               (bloc.getNdamage(nsSnv.result) >=
                                   filterBloc.patogenicidadeTradicional) &&
                               (bloc.getNdamageML(nsSnv.resultML) >=
-                                  filterBloc.patogenicidadeMachineLearning)) {
+                                  filterBloc.patogenicidadeMachineLearning) &&
+                              (filterBloc.selectedPredefinedList ==
+                                      'All genes' ||
+                                  filterBloc.curentList.contains(
+                                      bloc.getGeneName(nsSnv.result)))) {
                             return Column(
                               children: [
                                 ListTile(
@@ -420,7 +424,7 @@ class _PredictPageState extends State<PredictPage> {
                                                       .toString(),
                                                   style: TextStyle(
                                                     fontSize: 70,
-                                                    color: bloc.getColor(
+                                                    color: bloc.getColorMl(
                                                       bloc.getNdamageML(
                                                         nsSnv.resultML,
                                                       ),

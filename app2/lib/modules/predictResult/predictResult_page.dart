@@ -773,6 +773,17 @@ class _PredictResultPageState extends State<PredictResultPage> {
                 ),
               ),
             ),
+            ListTile(
+              title: Text("Genename:"),
+              subtitle: Text(
+                (() {
+                  return bloc.genename;
+                })(),
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+            ),
 
             /*Row(
                   children: <Widget>[

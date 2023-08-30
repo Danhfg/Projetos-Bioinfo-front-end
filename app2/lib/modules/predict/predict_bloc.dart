@@ -76,6 +76,12 @@ class PredictBloc extends BlocBase {
     return Colors.lightGreen;
   }
 
+  Color getColorMl(int ndamage) {
+    if (ndamage >= 6) return Colors.red[400];
+    if (ndamage == -1) return Colors.yellow;
+    return Colors.lightGreen;
+  }
+
   int getNdamage(String result) {
     var allPredictors = {};
     List<String> resultList = result.split("\n");
@@ -186,6 +192,17 @@ class PredictBloc extends BlocBase {
       if (i != "") result += int.parse(i.split(':')[1]);
     }
     return result;
+  }
+
+  String getGeneName(String result) {
+    if (result == null) return "";
+    List<String> resultList = result.split("\n");
+    for (String item in resultList) {
+      if (item.contains("genename")) {
+        return item.split(":")[1].split(";")[0];
+      }
+    }
+    return "";
   }
 
   String processPrediction(String result) {

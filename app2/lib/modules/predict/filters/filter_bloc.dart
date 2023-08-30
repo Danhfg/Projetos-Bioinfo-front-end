@@ -1,9 +1,13 @@
 import 'dart:io';
 
+import 'package:app2/shared/constants.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 
 class SearchScreenBloc extends BlocBase {
-  SearchScreenBloc();
+  SearchScreenBloc() {
+    this.selectedPredefinedList = 'All genes';
+    this.curentList = 'All genes';
+  }
 
   double patogenicidadeMachineLearning = 0;
 
@@ -21,17 +25,23 @@ class SearchScreenBloc extends BlocBase {
 
   File geneList;
 
-  void getUser() async {
-    try {
-      // this.user = await repo.getUserData();
-    } catch (e) {
-      throw (e);
-    }
-  }
+  String curentList = 'All genes';
 
   //dispose will be called automatically by closing its streams
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void updateList(String newValue) {
+    if (newValue == 'All genes') {
+      this.curentList = 'All genes';
+    } else if (newValue == 'Hallmark genes') {
+      this.curentList = hallmark;
+    } else if (newValue == 'DNA-rep genes') {
+      this.curentList = dnarep;
+    } else if (newValue == 'Rep-rep genes') {
+      this.curentList = reprep;
+    }
   }
 }
