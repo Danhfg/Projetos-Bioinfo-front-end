@@ -28,8 +28,8 @@ const RESOURCES = {
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
-"index.html": "64eb8e7025a97a4d86eff09f800d379d",
-"/": "64eb8e7025a97a4d86eff09f800d379d",
+"index.html": "58ce2c43a3b811fadc81b703b45c2ee0",
+"/": "58ce2c43a3b811fadc81b703b45c2ee0",
 "main.dart.js": "3674258caef0153e883fbb2dd8072455",
 "manifest.json": "6164b7af5a1e70c6e5e8c85584409527",
 "version.json": "8ed7f85094b2da843cad4e017ab1d5b1"
@@ -38,7 +38,7 @@ const RESOURCES = {
 // The application shell files that are downloaded before a service worker can
 // start.
 const CORE = [
-  "dtreepred/",
+  "/",
 "main.dart.js",
 "index.html",
 "assets/NOTICES",
